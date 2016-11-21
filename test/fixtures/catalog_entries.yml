@@ -1,0 +1,30 @@
+# == Schema Information
+#
+# Table name: catalog_entries
+#
+#  id             :integer          not null, primary key
+#  name           :string           not null
+#  type           :string           not null
+#  tag            :string           not null
+#  version        :string
+#  version_date   :date
+#  prereleases    :boolean          default(FALSE)
+#  external_links :text
+#  data           :text
+#  refreshed_at   :datetime
+#  last_error     :string
+#  created_at     :datetime         not null
+#  updated_at     :datetime         not null
+#
+
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  name: MyString
+  type: 
+  latest: MyString
+
+two:
+  name: MyString
+  type: 
+  latest: MyString

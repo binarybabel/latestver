@@ -1,0 +1,38 @@
+<%= render 'shared/demo_jumbo' %>
+<br />
+<h3 class="sub-header">Catalog</h3>
+<p class="text-center"><i class="fa fa-question-circle"></i> Click an entry name for a JSON API permalink</p>
+<table id="catalog" class="table table-striped">
+  <thead>
+  <tr>
+    <th>Name</th>
+    <th>Tag</th>
+    <th>Version</th>
+    <th>Links</th>
+  </tr>
+  </thead>
+  <tbody>
+  <% @catalog.each do |entry| %>
+      <tr>
+        <td><a href="<%= catalog_view_path(name: entry.name, tag: entry.tag, format: :json) %>"><%= entry.name %></a></td>
+        <td><%= entry.tag %></td>
+        <td><%= entry.version %></td>
+        <td>
+          <% Nokogiri::HTML("<html>#{entry.external_links}</html>").css('a').each do |link|
+              link['target'] = '_blank'
+          %>
+          <%= link.to_s.html_safe %> &nbsp;
+          <% end %>
+        </td>
+      </tr>
+  <% end %>
+  </tbody>
+</table>
+
+<script>
+$(document).ready(function(){
+  $('#catalog').DataTable({
+    iDisplayLength: 25
+  });
+});
+</script>

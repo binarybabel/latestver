@@ -1,0 +1,54 @@
+<h3 class="sub-header"><%= @group_name %></h3>
+<div class="pull-right" style="font-size: 12px;">
+  <i class="fa fa-question-circle"></i>
+  <em>Input "latest" or "l" to set an instance to the most recent version.</em>
+</div>
+<%= form_tag() do %>
+    <div class="table-responsive2">
+      <table class="table table-striped">
+        <thead>
+        <tr>
+          <th>Name</th>
+          <th>Tag</th>
+          <th>Version</th>
+        </tr>
+        </thead>
+        <tbody>
+        <% @instances.each do |i| %>
+            <tr>
+              <td>
+                <% unless i.up_to_date? %>
+                    <i class="fa fa-upload hidden-xs"></i>
+                <% end %>
+                <%= i.name %>
+              </td>
+              <td><%= i.tag %></td>
+              <% if i.up_to_date? %>
+                  <td class="bg-success">
+                    <%= text_field_tag("ver_#{i.id}", i.version, class: 'form-control2') %>
+                    &nbsp;
+                    <span class="small text-success">Up-To-Date</span>
+                  </td>
+              <% else %>
+                  <td class="bg-danger">
+                    <%= text_field_tag("ver_#{i.id}", i.version, class: 'form-control2') %>
+                    &nbsp;&lt;=&nbsp;
+                    <i><%= i.latest_version %></i>
+                    <% Nokogiri::HTML("<html>#{i.catalog_entry.external_links}</html>").css('a').each do |link|
+                      link['target'] = '_blank'
+                    %>
+                        — <%= link.to_s.html_safe %>
+                    <% end %>
+                  </td>
+              <% end %>
+            </tr>
+        <% end %>
+        </tbody>
+      </table>
+    </div>
+    <div class="row">
+      <div class="col-xs-12 text-right">
+        <input type="submit" value="Save Changes" class="btn btn-primary" />
+      </div>
+    </div>
+<% end %>

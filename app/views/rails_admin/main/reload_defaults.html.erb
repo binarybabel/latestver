@@ -1,0 +1,18 @@
+<% if params[:confirm] %>
+<% Object.const_get(@abstract_model.to_s).reload_defaults! %>
+<h2>Success! Default entries reloaded.</h2>
+<a href="." class="btn btn-success btn-lg">Continue</a>
+<% else %>
+<h4>
+  <% if @abstract_model.to_s == 'CatalogEntry' %>
+    This function re-adds any missing default/factory/example catalog entries.
+  <% else %>
+    This function reloads the default catalog entries for <%= @abstract_model.to_s.demodulize.titleize %>.
+  <% end %>
+</h4>
+<p>
+  <em>( It will not modify or remove existing entries. )</em>
+</p>
+<br />
+<a href="?confirm=true" class="btn btn-danger btn-lg" onclick="$(this).replaceWith('<strong>Please wait...</strong>');">Confirm</a>
+<% end %>

@@ -1,0 +1,42 @@
+<h3 class="sub-header">API Endpoints with Sample Output</h3>
+<br />
+<h4>Catalog Entry</h4>
+<p>Note: You can click any entry in the Catalog for an API link.</p>
+<pre>/catalog/&lt;name&gt;/&lt;tag&gt;.json</pre>
+<figure class="highlight">
+ <pre>{
+  "name": "java",
+  "tag": "jdk8",
+  "version": "8u111-b14",
+  "version_parsed": {
+    "major": "8",
+    "minor": "111",
+    "build": "14"
+  },
+  "version_segments": [
+    "8",
+    "111",
+    "14"
+  ],
+  "version_updated": "2016-11-20",
+  "version_checked": "2016-11-20",
+  "download_links": {
+    "rpm": "http://download.oracle.com/otn-pub/java/jdk/8u111-b14/jdk-8u111-linux-x64.rpm",
+    "tgz": "http://download.oracle.com/otn-pub/java/jdk/8u111-b14/jdk-8u111-linux-x64.tar.gz",
+    "dmg": "http://download.oracle.com/otn-pub/java/jdk/8u111-b14/jdk-8u111-macosx-x64.dmg",
+    "exe": "http://download.oracle.com/otn-pub/java/jdk/8u111-b14/jdk-8u111-windows-x64.exe"
+  },
+  "external_links": [
+    {
+      "name": "Releases",
+      "href": "http://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html"
+    }
+  ],
+  "command_samples": {
+    "curl_download": "curl -LOH 'Cookie: oraclelicense=accept-securebackup-cookie' 'http://download.oracle.com/otn-pub/java/jdk/8u111-b14/jdk-8u111-linux-x64.rpm'",
+    "wget_download": "wget --no-check-certificate --no-cookies --header 'Cookie: oraclelicense=accept-securebackup-cookie' 'http://download.oracle.com/otn-pub/java/jdk/8u111-b14/jdk-8u111-linux-x64.rpm'"
+  },
+  "catalog_type": "Catalog::OracleJava",
+  "api_revision": 1
+}</pre>
+</figure>

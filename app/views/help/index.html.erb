@@ -1,0 +1,49 @@
+<h1 class="sub-header">Frequently Asked Questions</h1>
+
+<h3>How do I add a new Catalog entry?</h3>
+<p>
+  This is a hosted edition of <strong>Latestver</strong> where-by the catalog
+  items are curated. You can deploy your own copy of this software with
+  <a href="<%= Settings[:branding][:docker] %>" target="_blank">Docker</a>
+  for a custom catalog, project tracking, and access to all admin features.
+</p>
+<p>
+  Alternatively, you can open an issue at
+  <a href="<%= Settings[:branding][:github] %>" target="_blank">GitHub</a>
+  to recommend a new entry be added to this catalog. Suggested dependencies
+  are ideally in widespread use among the development community.
+</p>
+
+<br />
+<h3>How does Latestver lookup versions?</h3>
+<p>
+  The catalog supports various mechanisms to monitor version updates...
+</p>
+<ul>
+  <li>Git repository release tags</li>
+  <li>RubyGems.org publications</li>
+  <li>NPM registry entries</li>
+  <li>Web-page pattern matching/scraping</li>
+  <li>Ruby modules for custom entries, such as Oracle Java</li>
+</ul>
+
+<br />
+<h3>How can I deploy my own copy of Latestver?</h3>
+<p>
+  Please review the project's README on
+  <a href="<%= Settings[:branding][:github] %>" target="_blank"
+  ><i class="fa fa-github"></i> GitHub</a>.
+</p>
+
+<br />
+<h3>What extra features do privately deployed editions have?</h3>
+<div class="row">
+  <div class="col-sm-5">
+    <h4 class="sub-header text-primary">Custom Dependencies</h4>
+    <%= image_tag('feature-new-entry', class: 'img-responsive img-thumbnail') %>
+  </div>
+  <div class="col-sm-5">
+    <h4 class="sub-header text-primary">Project-level Tracking</h4>
+    <%= image_tag('feature-groups', class: 'img-responsive img-thumbnail') %>
+  </div>
+</div>

@@ -1,0 +1,25 @@
+<div class="small pull-right"><%= t('app.nav.refreshed') %><%= last_catalog_refresh %></div>
+<h3 class="sub-header">Catalog Update Log</h3>
+<div class="table-responsive">
+  <table class="table table-striped">
+    <thead>
+    <tr>
+      <th>Timestamp</th>
+      <th>Catalog Entry</th>
+      <th>Version From</th>
+      <th>Version To</th>
+    </tr>
+    </thead>
+    <tbody>
+    <% @catalog_log.each do |l| %>
+        <tr>
+          <td><%= l.created_at %></td>
+          <td><a href="<%= catalog_view_path(name: l.catalog_entry.name, tag: l.catalog_entry.tag, format: :json) %>"
+                ><%= l.catalog_entry.label %></a></td>
+          <td class="text-danger"><%= l.version_from || '—' %></td>
+          <td class="text-success"><strong><%= l.version_to %></strong></td>
+        </tr>
+    <% end %>
+    </tbody>
+  </table>
+</div>
