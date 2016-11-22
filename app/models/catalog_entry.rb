@@ -24,6 +24,7 @@ class CatalogEntry < ActiveRecord::Base
   validates :tag, uniqueness: {scope: :name}
 
   has_many :catalog_log_entries, dependent: :destroy
+  has_many :catalog_webhooks, dependent: :destroy
   has_many :instances, dependent: :destroy
 
   def label
@@ -190,7 +191,10 @@ class CatalogEntry < ActiveRecord::Base
         :label
       end
       list do
-        field :name
+        sort_by :name, :tag
+        field :name do
+          sort_reverse false
+        end
         field :type
         field :tag
         field :version

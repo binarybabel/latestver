@@ -2,12 +2,13 @@
 #
 # Table name: catalog_log_entries
 #
-#  id               :integer          not null, primary key
-#  catalog_entry_id :integer          not null
-#  version_from     :string
-#  version_to       :string
-#  created_at       :datetime         not null
-#  updated_at       :datetime         not null
+#  id                :integer          not null, primary key
+#  catalog_entry_id  :integer          not null
+#  version_from      :string
+#  version_to        :string
+#  webhook_triggered :boolean          default(FALSE)
+#  created_at        :datetime         not null
+#  updated_at        :datetime         not null
 #
 # Indexes
 #
@@ -26,6 +27,7 @@ class CatalogLogEntry < ApplicationRecord
       field :catalog_entry
       field :version_from
       field :version_to
+      field :webhook_triggered
     end
   end
 end

@@ -1,0 +1,29 @@
+# == Schema Information
+#
+# Table name: catalog_webhooks
+#
+#  id               :integer          not null, primary key
+#  catalog_entry_id :integer          not null
+#  url              :string           not null
+#  description      :string           not null
+#  last_triggered   :datetime
+#  last_error       :string
+#  created_at       :datetime         not null
+#  updated_at       :datetime         not null
+#
+# Indexes
+#
+#  index_catalog_webhooks_on_catalog_entry_id  (catalog_entry_id)
+#
+
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  catalog_entry: one
+  url: MyString
+  description: MyString
+
+two:
+  catalog_entry: two
+  url: MyString
+  description: MyString

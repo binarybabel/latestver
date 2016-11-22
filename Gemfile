@@ -9,6 +9,7 @@ gem 'uglifier', '>= 1.3.0'
 gem 'annotate'
 gem 'config'
 gem 'rufus-scheduler'
+gem 'webhook'
 
 gem 'jquery-rails'
 gem 'turbolinks'

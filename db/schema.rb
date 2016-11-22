@@ -10,12 +10,12 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161121014928) do
+ActiveRecord::Schema.define(version: 20161122073159) do
 
   create_table "catalog_entries", force: :cascade do |t|
-    t.string   "name",           null: false
-    t.string   "type",           null: false
-    t.string   "tag",            null: false
+    t.string   "name",                           null: false
+    t.string   "type",                           null: false
+    t.string   "tag",                            null: false
     t.string   "version"
     t.date     "version_date"
     t.boolean  "prereleases",    default: false
@@ -23,17 +23,29 @@ ActiveRecord::Schema.define(version: 20161121014928) do
     t.text     "data"
     t.datetime "refreshed_at"
     t.string   "last_error"
-    t.datetime "created_at",     null: false
-    t.datetime "updated_at",     null: false
+    t.datetime "created_at",                     null: false
+    t.datetime "updated_at",                     null: false
   end
 
   create_table "catalog_log_entries", force: :cascade do |t|
-    t.integer  "catalog_entry_id", null: false
+    t.integer  "catalog_entry_id",                  null: false
     t.string   "version_from"
     t.string   "version_to"
+    t.boolean  "webhook_triggered", default: false
+    t.datetime "created_at",                        null: false
+    t.datetime "updated_at",                        null: false
+    t.index ["catalog_entry_id"], name: "index_catalog_log_entries_on_catalog_entry_id"
+  end
+
+  create_table "catalog_webhooks", force: :cascade do |t|
+    t.integer  "catalog_entry_id", null: false
+    t.string   "url",              null: false
+    t.string   "description",      null: false
+    t.datetime "last_triggered"
+    t.string   "last_error"
     t.datetime "created_at",       null: false
     t.datetime "updated_at",       null: false
-    t.index ["catalog_entry_id"], name: "index_catalog_log_entries_on_catalog_entry_id"
+    t.index ["catalog_entry_id"], name: "index_catalog_webhooks_on_catalog_entry_id"
   end
 
   create_table "instances", force: :cascade do |t|

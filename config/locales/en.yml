@@ -25,6 +25,9 @@ en:
       catalog_log_entry:
         one: 'Log Entry'
         other: 'Log Entries'
+      catalog_webhook:
+        one: 'Catalog Webhook'
+        other: 'Catalog Webhooks'
     attributes:
       instance:
         group: 'Group / Project'
