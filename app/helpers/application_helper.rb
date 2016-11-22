@@ -5,6 +5,6 @@ module ApplicationHelper
   end
 
   def instance_groups
-    Instance.select(:group).distinct.map {|x| x.group}.sort
+    Group.order(:name).all.map { |g| g.name }
   end
 end

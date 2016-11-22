@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161122073159) do
+ActiveRecord::Schema.define(version: 20161122210533) do
 
   create_table "catalog_entries", force: :cascade do |t|
     t.string   "name",                           null: false
@@ -48,14 +48,19 @@ ActiveRecord::Schema.define(version: 20161122073159) do
     t.index ["catalog_entry_id"], name: "index_catalog_webhooks_on_catalog_entry_id"
   end
 
+  create_table "groups", force: :cascade do |t|
+    t.string "name", null: false
+  end
+
   create_table "instances", force: :cascade do |t|
-    t.string   "group",            null: false
+    t.integer  "group_id",         null: false
     t.integer  "catalog_entry_id", null: false
     t.string   "description"
     t.string   "version"
     t.datetime "created_at",       null: false
     t.datetime "updated_at",       null: false
     t.index ["catalog_entry_id"], name: "index_instances_on_catalog_entry_id"
+    t.index ["group_id"], name: "index_instances_on_group_id"
   end
 
 end

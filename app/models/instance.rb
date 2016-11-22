@@ -3,7 +3,7 @@
 # Table name: instances
 #
 #  id               :integer          not null, primary key
-#  group            :string           not null
+#  group_id         :integer          not null
 #  catalog_entry_id :integer          not null
 #  description      :string
 #  version          :string
@@ -13,13 +13,19 @@
 # Indexes
 #
 #  index_instances_on_catalog_entry_id  (catalog_entry_id)
+#  index_instances_on_group_id          (group_id)
 #
 
 class Instance < ActiveRecord::Base
   validates_presence_of :catalog_entry, :group
   before_validation :use_latest_version
 
+  belongs_to :group
   belongs_to :catalog_entry
+
+  def group_enum
+    Instance.select(:group).distinct.map {|x| [x.group, x.group]}.sort
+  end
 
   def name
     catalog_entry.try(:name)
@@ -61,9 +67,31 @@ class Instance < ActiveRecord::Base
 
   rails_admin do
     list do
-      field :group
+      sort_by :group
+      field :group do
+        sortable 'groups.name, catalog_entries.name, catalog_entries.tag'
+        sort_reverse false
+      end
       field :catalog_entry
       field :version
+      field :description
+    end
+
+    create do
+      field :group
+      field :catalog_entry
+      field :version do
+        help 'Optional. Current version of this instance. Enter "latest" for most recent version.'
+      end
+      field :description
+    end
+
+    edit do
+      field :group
+      field :catalog_entry
+      field :version do
+        help 'Optional. Current version of this instance. Enter "latest" for most recent version.'
+      end
       field :description
     end
   end
