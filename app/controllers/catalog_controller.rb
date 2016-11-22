@@ -29,8 +29,18 @@ class CatalogController < ApplicationController
           command_samples: @entry.command_samples,
           catalog_type: @entry.type,
           api_revision: 1
-      }
-      format.json { render json: data }
+      }.deep_stringify_keys
+
+      if (path = params['p'])
+        segments = path.split('.')
+        r = data
+        while segments.length > 0 and r
+          r = r[segments.shift]
+        end
+        format.text { render text: r.to_s }
+      else
+        format.json { render json: data }
+      end
     end
   end
 
