@@ -191,8 +191,9 @@ class CatalogEntry < ActiveRecord::Base
         :label
       end
       list do
-        sort_by :name, :tag
+        sort_by :name
         field :name do
+          sortable 'name, tag'
           sort_reverse false
         end
         field :type

@@ -36,6 +36,8 @@ RailsAdmin.config do |config|
     end
   end
 
+  config.browser_validations = false
+
   config.actions do
     dashboard                     # mandatory
     index                         # mandatory

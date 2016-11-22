@@ -23,7 +23,11 @@ class CatalogWebhook < ApplicationRecord
 
   rails_admin do
     list do
-      field :catalog_entry
+      sort_by :catalog_entry
+      field :catalog_entry do
+        sortable 'catalog_entries.name, catalog_entries.tag'
+        sort_reverse false
+      end
       field :description
       field :last_triggered
       field :last_error
