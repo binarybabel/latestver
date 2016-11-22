@@ -31,12 +31,12 @@ module Catalog
     def check_remote_version
       text = open(web_page_url) { |f| f.read }
 
-      if css_query or xpath_query
+      unless [css_query, xpath_query].all? { |v| v.to_s.empty? }
         n = Nokogiri::HTML(text)
-        if css_query
+        unless css_query.to_s.empty?
           n = n.at_css(css_query)
         end
-        if xpath_query
+        unless xpath_query.to_s.empty?
           n = n.at_xpath(xpath_query)
         end
         text = n.text
