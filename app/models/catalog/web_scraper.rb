@@ -72,6 +72,12 @@ module Catalog
           include_regex: '## (v)?[0-9]',
           exclude_regex: 'unreleased'
       ).find_or_create_by!(name: 'gitlab', tag: 'latest')
+
+      create_with(
+          web_page_url: 'https://docs.gradle.org/current/release-notes',
+          css_query: 'h3.releaseinfo',
+          include_regex: '.+'
+      ).find_or_create_by!(name: 'gradle', tag: 'latest')
     end
 
     protected
