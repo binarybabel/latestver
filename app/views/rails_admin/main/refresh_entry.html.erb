@@ -1,0 +1,13 @@
+<% if params[:confirm] %>
+    <pre><%= `rake catalog:refresh[#{@object.id}]` %></pre>
+    <a href="." class="btn btn-primary btn-lg">Return to Catalog</a>
+<% else %>
+    <h4>
+      This function manually refreshes the remote version of <strong><%= @object.label %></strong>
+    </h4>
+    <p>
+      <em>( Production deployments handle this automatically as a scheduled task. )</em>
+    </p>
+    <br />
+    <a href="?confirm=true" class="btn btn-success btn-lg" onclick="$(this).replaceWith('<strong>Please wait, this may take a minute...</strong>');">Refresh Now</a>
+<% end %>

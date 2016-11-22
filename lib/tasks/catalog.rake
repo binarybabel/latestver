@@ -8,7 +8,13 @@ namespace :catalog do
     filter = args[:filter]
 
     CatalogEntry.all.each do |entry|
-      next if filter and not entry.name.to_s.match(Regexp.new(filter, 'i'))
+      if filter
+        if filter.match(/\A[0-9]+\Z/)
+          next unless entry.id.to_s == filter
+        else
+          next unless entry.name.to_s.match(Regexp.new(filter, 'i'))
+        end
+      end
 
       puts "Refreshing #{entry.label} ..."
       begin

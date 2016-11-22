@@ -53,5 +53,9 @@ en:
         menu: 'Refresh Catalog'
         breadcrumb: 'Refresh Catalog'
         title: 'Refresh Catalog Entries'
+      refresh_entry:
+        menu: 'Refresh Entry'
+        breadcrumb: 'Refresh Entry'
+        title: 'Refresh Entry'
     misc:
       refresh: ""
