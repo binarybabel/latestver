@@ -123,10 +123,12 @@ class CatalogEntry < ActiveRecord::Base
       self.external_links = links.join("\n") + "\n" + external_links.to_s
       save!
     end
-    begin
-      refresh!
-    rescue
-      # Ignore refresh errors on create.
+    if ENV['REFRESH_ENABLED']
+      begin
+        refresh!
+      rescue
+        # Ignore refresh errors on create.
+      end
     end
   end
 
