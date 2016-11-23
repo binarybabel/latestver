@@ -7,13 +7,15 @@ Rails.application.load_tasks
 scheduler = Rufus::Scheduler::singleton
 
 if ENV['REFRESH_ENABLED']
-  scheduler.in '10s' do
-    Rake::Task['catalog:refresh'].invoke
-    Rake::Task['webhooks:trigger'].invoke
-  end
+  unless defined?(Rails::Console)
+    scheduler.in '10s' do
+      Rake::Task['catalog:refresh'].invoke
+      Rake::Task['webhooks:trigger'].invoke
+    end
 
-  scheduler.every (ENV['REFRESH_INTERVAL'] || '2h') do
-    Rake::Task['catalog:refresh'].invoke
-    Rake::Task['webhooks:trigger'].invoke
+    scheduler.every (ENV['REFRESH_INTERVAL'] || '1h') do
+      Rake::Task['catalog:refresh'].execute
+      Rake::Task['webhooks:trigger'].execute
+    end
   end
 end
