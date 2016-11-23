@@ -63,10 +63,18 @@ You can create custom catalog models for advanced version checking.
 
 Your classes should be namespaced `module Catalog` and reside within your data volume in a `lib/catalog/` subdirectory.
 
+## Contributing
+
+1. Fork it
+2. Create your feature branch (git checkout -b my-new-feature)
+3. Commit your changes (git commit -a -m 'Added some feature')
+4. Push to the branch (git push origin my-new-feature)
+5. Create new Pull Request
+
 
 ## Author and License
 
- - **Author:** BinaryBabel OSS (https://keybase.io/binarybabel)
+ - **Author:** BinaryBabel OSS ([https://keybase.io/binarybabel](https://keybase.io/binarybabel))
  - **License:** GNU GPL 3
 
 ```
