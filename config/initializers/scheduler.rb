@@ -6,14 +6,16 @@ Rails.application.load_tasks
 
 scheduler = Rufus::Scheduler::singleton
 
-if ENV['REFRESH_ENABLED']
+if CatalogEntry.autorefresh?
   unless defined?(Rails::Console)
+    puts "Autorefresh enabled... (#{CatalogEntry.autorefresh_interval})"
+
     scheduler.in '10s' do
       Rake::Task['catalog:refresh'].invoke
       Rake::Task['webhooks:trigger'].invoke
     end
 
-    scheduler.every (ENV['REFRESH_INTERVAL'] || '1h') do
+    scheduler.every (CatalogEntry.autorefresh_interval) do
       Rake::Task['catalog:refresh'].execute
       Rake::Task['webhooks:trigger'].execute
     end

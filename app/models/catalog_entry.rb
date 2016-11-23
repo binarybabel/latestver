@@ -213,6 +213,14 @@ class CatalogEntry < ActiveRecord::Base
     end
   end
 
+  def self.autorefresh?
+    ENV['REFRESH_ENABLED']
+  end
+
+  def self.autorefresh_interval
+    ENV['REFRESH_INTERVAL'] || '1h'
+  end
+
   protected
 
   after_create do
@@ -221,7 +229,7 @@ class CatalogEntry < ActiveRecord::Base
       self.external_links = links.join("\n") + "\n" + external_links.to_s
       save!
     end
-    if ENV['REFRESH_ENABLED']
+    if CatalogEntry.autorefresh?
       begin
         refresh!
       rescue
