@@ -27,6 +27,149 @@ class CatalogEntry < ActiveRecord::Base
   has_many :catalog_webhooks, dependent: :destroy
   has_many :instances, dependent: :destroy
 
+  ##
+  ## =ABSTRACT FUNCTIONS=
+  ## These should be overridden as necessary by actual catalog model.
+  ##
+
+  # Required.
+  # Ex: return '0.0.1'
+  def check_remote_version
+    false
+  end
+
+  # Optional.
+  # Ex: ['<a href="#"><i class="fa fa-star"> Hello</a>', ...]
+  def default_links
+    []
+  end
+
+  # Optional.
+  # Ex: {'tgz': 'http://example.com/file.tgz', ...}
+  def download_links
+    {}
+  end
+
+  # Optional.
+  # Ex: {'hello': 'echo Hello World'}
+  def command_samples
+    {}
+  end
+
+  # Create "factory" default entries for a catalog type.
+  # Helps demonstrate how the :name and :tag fields are interpreted
+  # ---------------------------------------------------------------
+  # def self.reload_defaults!
+  #   find_or_create_by!(name: name, tag: tag)
+  # end
+
+  # If your models need additional fields stored in the database...
+  # ---------------------------------------------------------------
+  # store :data, accessors: [ :field_a, :field_b ], coder: JSON
+
+  ##
+  ## =HELPER FUNCTIONS=
+  ## Useful in parsing or determining latest version.
+  ##
+
+  # Is input 'exactly' parseable as a version?
+  def is_version?(input)
+    Gem::Version.correct?(input) != nil
+  end
+
+  # Parse a version number (Ex: 0.0.1) out of an input string.
+  def scan_version(input, as_obj=false)
+    m = input.to_s.match(/[0-9]+([\.-][0-9A-Za-z_]+)+/)
+    if m
+      v = m[0]
+      if is_version?(v)
+        as_obj && Gem::Version.new(v) || v
+      end
+    end
+  end
+
+  # Parse a version (as above), mapping it to the original
+  #  input in a passed cache (Hash).
+  def scan_version_cache(input, cache, as_objs=false)
+    if (v = scan_version(input, as_objs))
+      cache[v] = input
+    end
+    v
+  end
+
+  # Parse a version that may be just a single number.
+  def scan_short_version(input)
+    m = input.to_s.match(/[0-9]+([\.-][0-9A-Za-z_]+)?/)
+    if m
+      v = m[0]
+      if is_version?(v)
+        v
+      end
+    end
+  end
+
+  # Parse the first whole integer number.
+  def scan_number(input)
+    m = input.to_s.match(/[0-9]+/)
+    m && m[0]
+  end
+
+  # Given a list of possible versions, meet a requirement.
+  # Useful for matching partial versions pulled from the :tag field.
+  def match_requirement(list, requirement)
+    cache = Hash.new
+    list = list.map do |y|
+      begin
+        scan_version_cache(y, cache, true)
+      rescue ArgumentError
+        nil
+      end
+    end.compact.sort.uniq.reverse
+    gr = Gem::Requirement.new(requirement)
+    list.each do |gv|
+      if gr.satisfied_by?(gv) and (prereleases or not gv.prerelease?)
+        return cache[gv]  # return actual list entry, not just the parsed version
+      end
+    end
+    nil
+  end
+
+  ##
+  ## =CALCULATED ATTRIBUTES=
+  ## Can be overridden, but normally fend for themselves.
+  ##
+
+  def version_parsed
+    parts = {
+        'major': '',
+        'minor': '',
+        'patch': '',
+        'build': '',
+        'prerelease': '',
+    }
+    begin
+      if (v = Mixlib::Versioning.parse(version))
+        parts['major'] = v.major
+        parts['minor'] = v.minor
+        parts['patch'] = v.patch
+        parts['build'] = v.build || v.prerelease.sub(/^[a-z]+/, '')
+        parts['prerelease'] = v.prerelease
+      end
+    rescue
+      # Failed to parse version.
+    end
+    parts
+  end
+
+  def version_segments
+    return [] unless version
+    version.gsub(/[^0-9]+/, '-').split('-')
+  end
+
+  ##
+  ## =MAIN FUNCTIONS=
+  ##
+
   def label
     "#{name}:#{tag}"
   end
@@ -62,49 +205,6 @@ class CatalogEntry < ActiveRecord::Base
     end
   end
 
-  def version_parsed
-    parts = {
-        'major': '',
-        'minor': '',
-        'patch': '',
-        'build': '',
-        'prerelease': '',
-    }
-    begin
-      if (v = Mixlib::Versioning.parse(version))
-        parts['major'] = v.major
-        parts['minor'] = v.minor
-        parts['patch'] = v.patch
-        parts['build'] = v.build || v.prerelease.sub(/^[a-z]+/, '')
-        parts['build'] = build
-      end
-    rescue
-      # Failed to parse version.
-    end
-    parts
-  end
-
-  def version_segments
-    return [] unless version
-    version.gsub(/[^0-9]+/, '-').split('-')
-  end
-
-  def check_remote_version
-    false
-  end
-
-  def default_links
-    []
-  end
-
-  def download_links
-    {}
-  end
-
-  def command_samples
-    {}
-  end
-
   def self.reload_defaults!
     if (self == ::CatalogEntry)
       ::CatalogEntry.descendants.each do |klass|
@@ -112,8 +212,6 @@ class CatalogEntry < ActiveRecord::Base
       end
     end
   end
-
-  #store :data, accessors: [ :another_field ], coder: JSON
 
   protected
 
@@ -130,60 +228,6 @@ class CatalogEntry < ActiveRecord::Base
         # Ignore refresh errors on create.
       end
     end
-  end
-
-  def is_version?(input)
-    Gem::Version.correct?(input) != nil
-  end
-
-  def match_requirement(list, requirement)
-    cache = Hash.new
-    list = list.map do |y|
-      begin
-        scan_version_cache(y, cache, true)
-      rescue ArgumentError
-        nil
-      end
-    end.compact.sort.uniq.reverse
-    gr = Gem::Requirement.new(requirement)
-    list.each do |gv|
-      if gr.satisfied_by?(gv) and (prereleases or not gv.prerelease?)
-        return cache[gv]  # return actual list entry, not just the parsed version
-      end
-    end
-    nil
-  end
-
-  def scan_version(input, as_obj=false)
-    m = input.to_s.match(/[0-9]+([\.-][0-9A-Za-z_]+)+/)
-    if m
-      v = m[0]
-      if is_version?(v)
-        as_obj && Gem::Version.new(v) || v
-      end
-    end
-  end
-
-  def scan_version_cache(input, cache, as_objs=false)
-    if (v = scan_version(input, as_objs))
-      cache[v] = input
-    end
-    v
-  end
-
-  def scan_short_version(input)
-    m = input.to_s.match(/[0-9]+([\.-][0-9A-Za-z_]+)?/)
-    if m
-      v = m[0]
-      if is_version?(v)
-        v
-      end
-    end
-  end
-
-  def scan_number(input)
-    m = input.to_s.match(/[0-9]+/)
-    m && m[0]
   end
 
   def self.configure_admin(klass)

@@ -18,11 +18,13 @@ Supports tracking the latest versions of your favorite software via:
 
 Latestver is available as a Docker Image: [hub.docker.com/r/binarybabel/latestver](https://hub.docker.com/r/binarybabel/latestver/)
 
+By default the application will be available from `http://localhost:3333`
+
 ```
-docker run -d -p 3333:3333 -v .:/app/data --name latestver binarybabel/latestver
+docker run -p 3333:3333 -v $(pwd):/app/data --name latestver binarybabel/latestver
 ```
 
-**docker-compose.yml**
+Alternatively, **docker-compose.yml**
 
 ```
 version: '2'
@@ -45,7 +47,7 @@ Catalog Settings
 * __REFRESH\_ENABLED__
  * default: true - catalog versions refreshed automatically (at startup and set interval)
 * __REFRESH\_INTERVAL__
- * default: 2h - how often catalog is refreshed
+ * default: 1h - how often catalog is refreshed
 
 
 Security Settings
@@ -55,21 +57,25 @@ Security Settings
 * __ADMIN\_USER__
  * default: admin
 
-### New Catalog Models
+### Custom Catalog Entries
 
 You can create custom catalog models for advanced version checking.
 
-[Existing catalog models — for reference](https://github.com/binarybabel/latestver/tree/master/app/models/catalog) 
+**Here are some code references:**
 
-Your classes should be namespaced `module Catalog` and reside within your data volume in a `lib/catalog/` subdirectory.
+* [Base model](https://github.com/binarybabel/latestver/blob/master/app/models/catalog_entry.rb) - Shows abstract functions and parsing helpers
+* [RubyGem model](https://github.com/binarybabel/latestver/blob/master/app/models/catalog/ruby_gem.rb) - Good starting example
+* [All other models](https://github.com/binarybabel/latestver/tree/master/app/models/catalog) - More advanced examples
+
+Your model should be namespaced `module Catalog` and reside within your data volume in a `lib/catalog/` subdirectory.
 
 ## Contributing
 
-1. Fork it
-2. Create your feature branch (git checkout -b my-new-feature)
-3. Commit your changes (git commit -a -m 'Added some feature')
-4. Push to the branch (git push origin my-new-feature)
-5. Create new Pull Request
+1. Fork this repo
+2. Create your feature branch (`git checkout -b my-new-feature`)
+3. Commit your changes (`git commit -a -m 'Added some feature'`)
+4. Push the branch (`git push origin my-new-feature`)
+5. Create a new Pull Request
 
 
 ## Author and License
