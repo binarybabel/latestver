@@ -25,6 +25,7 @@ gem 'mixlib-versioning'
 # Frontend
 gem 'font-awesome-sass', '~> 4.7.0'
 gem 'bootstrap-sass', '~> 3.3.6'
+gem 'rails_admin_clone'
 gem 'rails_admin'
 gem 'devise'
 

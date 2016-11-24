@@ -244,6 +244,9 @@ class CatalogEntry < ActiveRecord::Base
       object_label_method do
         :label
       end
+      clone_config do
+        custom_method :admin_clone
+      end
       list do
         sort_by :name
         field :name do
@@ -294,6 +297,15 @@ class CatalogEntry < ActiveRecord::Base
           end
         end
       end
+    end
+  end
+
+  def admin_clone
+    self.dup.tap do |entry|
+      entry.tag = ''
+      entry.version = ''
+      entry.version_date = ''
+      entry.last_error = ''
     end
   end
 

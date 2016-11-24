@@ -50,6 +50,9 @@ RailsAdmin.config do |config|
     edit do
       except ['CatalogLogEntry']
     end
+    clone do
+      except ['Group', 'Instance', 'CatalogLogEntry']
+    end
     delete
     show_in_app
 

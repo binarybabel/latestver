@@ -11,6 +11,10 @@ class Group < ApplicationRecord
 
   has_many :instances, dependent: :destroy
 
+  def to_param
+    name
+  end
+
   rails_admin do
     list do
       sort_by :name
