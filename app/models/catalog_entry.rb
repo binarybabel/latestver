@@ -303,6 +303,7 @@ class CatalogEntry < ActiveRecord::Base
   def admin_clone
     self.dup.tap do |entry|
       entry.tag = ''
+      entry.external_links = ''
       entry.version = ''
       entry.version_date = ''
       entry.last_error = ''
