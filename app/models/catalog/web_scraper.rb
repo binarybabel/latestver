@@ -29,7 +29,8 @@ module Catalog
     store :data, accessors: [:web_page_url, :css_query, :xpath_query, :include_regex, :exclude_regex], coder: JSON
 
     def check_remote_version
-      text = open(web_page_url) { |f| f.read }
+      url = web_page_url.to_s % {name: name, tag: tag}
+      text = open(url) { |f| f.read }
 
       unless [css_query, xpath_query].all? { |v| v.to_s.empty? }
         n = Nokogiri::HTML(text)
@@ -84,7 +85,9 @@ module Catalog
 
     rails_admin do
       create do
-        field :web_page_url
+        field :web_page_url do
+          help 'Substitutions: %{name} %{tag}'
+        end
         field :css_query
         field :xpath_query
         field :include_regex
@@ -92,7 +95,9 @@ module Catalog
       end
 
       edit do
-        field :web_page_url
+        field :web_page_url do
+          help 'Substitutions: %{name} %{tag}'
+        end
         field :css_query
         field :xpath_query
         field :include_regex
