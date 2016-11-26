@@ -31,12 +31,14 @@ module Catalog
     store :data, accessors: [:web_page_url, :css_query, :xpath_query, :include_regex, :exclude_regex], coder: JSON
 
     def check_remote_version
-      url = web_page_url.to_s % {
-          name: name,
-          tag: tag,
-          tag_version: scan_version(tag),
-          tag_major: scan_number(tag)
-      }
+      url_params = ::CatalogEntry.all.map { |y| [y.label, y.version] }.to_h
+      url_params.merge!({
+        name: name,
+        tag: tag,
+        tag_version: scan_version(tag),
+        tag_major: scan_number(tag)
+      })
+      url = web_page_url.to_s % url_params.symbolize_keys
       text = open(url) { |f| f.read }
 
       unless [css_query, xpath_query].all? { |v| v.to_s.empty? }
@@ -99,7 +101,7 @@ module Catalog
     rails_admin do
       create do
         field :web_page_url do
-          help '%{name} %{tag} %{tag_version} %{tag_major}'
+          help '%{name} %{tag} %{tag_version} %{tag_major} %{NAME:TAG}'
         end
         field :css_query
         field :xpath_query

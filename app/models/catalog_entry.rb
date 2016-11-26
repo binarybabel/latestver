@@ -281,12 +281,29 @@ class CatalogEntry < ActiveRecord::Base
             default_value 'latest'
           end
         end
-        group :other do
+        group :more do
           active false
           label 'More Options'
-          field :prereleases
+          field :prereleases do
+            visible do
+              not bindings[:object].kind_of?(::CatalogEntry)
+            end
+          end
+          field :version do
+            visible do
+              bindings[:object].kind_of?(::CatalogEntry)
+            end
+          end
+          field :version_date do
+            visible do
+              bindings[:object].kind_of?(::CatalogEntry)
+            end
+          end
           field :type do
-            read_only true
+            read_only do
+              not bindings[:object].kind_of?(::CatalogEntry)
+            end
+            default_value 'CatalogEntry'
             help ''
           end
           field :no_log do
@@ -303,7 +320,7 @@ class CatalogEntry < ActiveRecord::Base
           field :name
           field :tag
         end
-        group :other do
+        group :advanced do
           active true
           label 'Advanced'
           field :type do
