@@ -14,6 +14,7 @@
 #  refreshed_at   :datetime
 #  last_error     :string
 #  no_log         :boolean          default(FALSE)
+#  hidden         :boolean          default(FALSE)
 #  created_at     :datetime         not null
 #  updated_at     :datetime         not null
 #
@@ -27,6 +28,9 @@ class CatalogEntry < ActiveRecord::Base
   has_many :catalog_log_entries, dependent: :destroy
   has_many :catalog_webhooks, dependent: :destroy
   has_many :instances, dependent: :destroy
+
+  scope :visible, -> { where('hidden != 1 AND hidden != "t"') }
+  scope :hidden, -> { where('hidden = 1 OR hidden = "t"') }
 
   ##
   ## =ABSTRACT FUNCTIONS=
@@ -175,6 +179,10 @@ class CatalogEntry < ActiveRecord::Base
     "#{name}:#{tag}"
   end
 
+  def visible
+    not hidden
+  end
+
   def refresh!
     begin
       v = check_remote_version
@@ -261,6 +269,10 @@ class CatalogEntry < ActiveRecord::Base
         field :version
         field :version_date
         field :last_error
+        field :hidden, :boolean do
+          hide
+          filterable true
+        end
       end
       create do
         group :default do
@@ -270,6 +282,7 @@ class CatalogEntry < ActiveRecord::Base
           end
         end
         group :other do
+          active false
           label 'More Options'
           field :prereleases
           field :type do
@@ -279,6 +292,7 @@ class CatalogEntry < ActiveRecord::Base
           field :no_log do
             help "Don't post version changes to catalog log"
           end
+          field :hidden
           field :external_links do
             help 'HTML links <a></a>, (one per line). Type may also auto-add links on create.'
           end
@@ -290,7 +304,8 @@ class CatalogEntry < ActiveRecord::Base
           field :tag
         end
         group :other do
-          label 'More Options'
+          active true
+          label 'Advanced'
           field :type do
             read_only true
             help ''
@@ -301,6 +316,7 @@ class CatalogEntry < ActiveRecord::Base
           field :no_log do
             help "Don't post version changes to catalog log"
           end
+          field :hidden
           field :external_links do
             help 'HTML links <a></a>, (one per line)'
           end

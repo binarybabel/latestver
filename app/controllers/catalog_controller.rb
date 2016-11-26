@@ -1,7 +1,7 @@
 class CatalogController < ApplicationController
 
   def index
-    @catalog = CatalogEntry.order('name, tag DESC').all
+    @catalog = CatalogEntry.order('name, tag DESC').visible
   end
 
   def view
