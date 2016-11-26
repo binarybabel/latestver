@@ -2,7 +2,7 @@ class GroupController < ApplicationController
   def index
     @group_name = params[:group]
     @group = Group.find_by!(name: @group_name)
-    @instances = Instance.where(:group => @group).joins(:catalog_entry).order('catalog_entries.name')
+    @instances = Instance.where(:group => @group).joins(:catalog_entry).order('catalog_entries.name, catalog_entries.tag DESC')
   end
 
   def update
