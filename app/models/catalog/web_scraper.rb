@@ -53,8 +53,14 @@ module Catalog
       xexp = Regexp.new(exclude_regex.to_s)
 
       text.split("\n").each do |line|
-        if line.match(iexp) and (exclude_regex.to_s.empty? or not line.match(xexp))
-          return scan_version(line)
+        if (m = line.match(iexp)) and (exclude_regex.to_s.empty? or not line.match(xexp))
+          if m.names.include?('ver')
+            return m['ver']
+          elsif prereleases
+            return scan_short_version(m[0].to_s)
+          else
+            return scan_version(m[0].to_s)
+          end
         end
       end
       nil
