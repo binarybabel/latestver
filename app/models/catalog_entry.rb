@@ -13,6 +13,7 @@
 #  data           :text
 #  refreshed_at   :datetime
 #  last_error     :string
+#  no_log         :boolean          default(FALSE)
 #  created_at     :datetime         not null
 #  updated_at     :datetime         not null
 #
@@ -185,11 +186,13 @@ class CatalogEntry < ActiveRecord::Base
             self.refreshed_at = DateTime.now
             if version != v
               self.version_date = DateTime.now
-              CatalogLogEntry.create!({
-                                          catalog_entry: self,
-                                          version_from: version,
-                                          version_to: v
-                                      })
+              unless self.no_log
+                CatalogLogEntry.create!({
+                                            catalog_entry: self,
+                                            version_from: version,
+                                            version_to: v
+                                        })
+              end
             end
             self.version = v
             self.last_error = nil
@@ -273,6 +276,9 @@ class CatalogEntry < ActiveRecord::Base
             read_only true
             help ''
           end
+          field :no_log do
+            help "Don't post version changes to catalog log"
+          end
           field :external_links do
             help 'HTML links <a></a>, (one per line). Type may also auto-add links on create.'
           end
@@ -292,6 +298,9 @@ class CatalogEntry < ActiveRecord::Base
           field :prereleases
           field :version
           field :version_date
+          field :no_log do
+            help "Don't post version changes to catalog log"
+          end
           field :external_links do
             help 'HTML links <a></a>, (one per line)'
           end

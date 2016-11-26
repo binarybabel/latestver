@@ -13,6 +13,7 @@
 #  data           :text
 #  refreshed_at   :datetime
 #  last_error     :string
+#  no_log         :boolean          default(FALSE)
 #  created_at     :datetime         not null
 #  updated_at     :datetime         not null
 #
