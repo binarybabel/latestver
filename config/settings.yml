@@ -1,3 +1,7 @@
 branding:
-  github: https://github.com/binarybabel/latestver
   docker: https://hub.docker.com/r/binarybabel/latestver/
+  github: https://github.com/binarybabel/latestver
+  gitter:
+    url: https://gitter.im/latestver/Lobby
+    badge: https://img.shields.io/gitter/room/latestver/Lobby.svg?style=flat-square
+

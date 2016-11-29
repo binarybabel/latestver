@@ -2,6 +2,7 @@
 
 [![Docker Automated buil](https://img.shields.io/docker/automated/jrottenberg/ffmpeg.svg)](https://hub.docker.com/r/binarybabel/latestver/)
 [![AUR](https://img.shields.io/aur/license/yaourt.svg)](https://www.gnu.org/licenses/gpl-3.0.en.html)
+[![Join the chat at https://gitter.im/latestver/Lobby](https://badges.gitter.im/latestver/Lobby.svg)](https://gitter.im/latestver/Lobby?utm_source=badge&utm_medium=badge&utm_content=badge)
 
 Dependency monitoring web-application featuring webhooks, JSON API, and project-level tracking.
 
