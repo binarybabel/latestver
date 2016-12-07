@@ -8,16 +8,17 @@ WORKDIR /app
 
 VOLUME ["/app/data"]
 
+ENV RAILS_ENV=production RAILS_SERVE_STATIC_FILES=1
+
 ADD Gemfile /app/Gemfile
 ADD Gemfile.lock /app/Gemfile.lock
-RUN bundle install
+RUN bundle install --deployment --without development test
 
 ADD . /app
 
-ENV RAILS_ENV production
+RUN ./bin/rake assets:precompile
 
-RUN bundle exec rake assets:precompile
+ENV REFRESH_ENABLED=1
 
-ENV REFRESH_ENABLED 1
-
-CMD ["bundle", "exec", "rake", "start"]
+ENTRYPOINT ["./bin/rake"]
+CMD ["start"]
