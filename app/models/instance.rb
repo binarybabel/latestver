@@ -53,6 +53,10 @@ class Instance < ActiveRecord::Base
     catalog_entry.version
   end
 
+  after_create do
+    update! if version == 'latest'
+  end
+
   protected
 
   def is_version?(value)
