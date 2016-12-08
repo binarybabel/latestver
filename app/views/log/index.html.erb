@@ -8,6 +8,7 @@
       <th>Catalog Entry</th>
       <th>Version From</th>
       <th>Version To</th>
+      <th>Links</th>
     </tr>
     </thead>
     <tbody>
@@ -18,6 +19,13 @@
                 ><%= l.catalog_entry.label %></a></td>
           <td class="text-danger"><%= l.version_from || '—' %></td>
           <td class="text-success"><strong><%= l.version_to %></strong></td>
+          <td>
+            <% Nokogiri::HTML("<html>#{l.catalog_entry.external_links}</html>").css('a').each do |link|
+              link['target'] = '_blank'
+            %>
+                <%= link.to_s.html_safe %> &nbsp;
+            <% end %>
+          </td>
         </tr>
     <% end %>
     </tbody>
