@@ -5,6 +5,7 @@ Rails.application.routes.draw do
 
   get 'catalog' => 'catalog#index', :as => 'catalog'
   get 'catalog/:name/:tag' => 'catalog#view', :as => 'catalog_view'
+  get 'catalog-api/:name/:tag' => 'catalog#view', :as => 'catalog_view_api'
 
   get 'group/:group' => 'group#index', :as => :group
   post 'group/:group' => 'group#update', :as => :group_update

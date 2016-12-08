@@ -2,18 +2,18 @@
 
 <br />
 <h4>Catalog Entry (Specific Value)</h4>
-<pre>/catalog/&lt;name&gt;/&lt;tag&gt;.txt?p=&lt;json.sub.path&gt;</pre>
+<pre>/catalog-api/&lt;name&gt;/&lt;tag&gt;.txt?p=&lt;json.sub.path&gt;</pre>
 <figure class="highlight">
-<pre><strong>$ curl -s <%= request.base_url %>/catalog/java/jdk8.txt?p=download_links.rpm</strong>
+<pre><strong>$ curl -s <%= request.base_url %>/catalog-api/java/jdk8.txt?p=download_links.rpm</strong>
 http://download.oracle.com/otn-pub/java/jdk/8u111-b14/jdk-8u111-linux-x64.rpm</pre>
 </figure>
 
 <br />
 <h4>Catalog Entry (Full JSON)</h4>
 <p>Note: You can click any entry in the Catalog for an API link.</p>
-<pre>/catalog/&lt;name&gt;/&lt;tag&gt;.json</pre>
+<pre>/catalog-api/&lt;name&gt;/&lt;tag&gt;.json</pre>
 <figure class="highlight">
- <pre><strong>$ curl -s <%= request.base_url %>/catalog/java/jdk8.json</strong>
+ <pre><strong>$ curl -s <%= request.base_url %>/catalog-api/java/jdk8.json</strong>
 {
   "name": "java",
   "tag": "jdk8",
