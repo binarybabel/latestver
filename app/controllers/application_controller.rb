@@ -3,6 +3,12 @@ class ApplicationController < ActionController::Base
   # For APIs, you may want to use :null_session instead.
   protect_from_forgery with: :exception
 
+  def cache_this!
+    if ENV['CACHE_CONTROL_MAX_AGE'].present?
+      expires_in ENV['CACHE_CONTROL_MAX_AGE'].to_i.seconds, :public => true
+    end
+  end
+
   ActionController::Renderers.add :json do |json, options|
     unless json.kind_of?(String)
       json = json.as_json(options) if json.respond_to?(:as_json)

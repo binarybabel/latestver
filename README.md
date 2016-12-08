@@ -48,7 +48,9 @@ Catalog Settings
 * __REFRESH\_ENABLED__
  * default: true - catalog versions refreshed automatically (at startup and set interval)
 * __REFRESH\_INTERVAL__
- * default: 1h - how often catalog is refreshed
+ * default: 1h - how often catalog is refreshed, ex: _(7d, 1h, 15m, 60s)_
+* __CACHE\_CONTROL\_MAX\_AGE__
+ * default: 0 - how many seconds browsers or proxies may cache catalog results
 
 
 Security Settings

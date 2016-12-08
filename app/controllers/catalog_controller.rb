@@ -1,10 +1,12 @@
 class CatalogController < ApplicationController
 
   def index
+    cache_this!
     @catalog = CatalogEntry.order('name, tag DESC').visible
   end
 
   def view
+    cache_this!
     @entry = CatalogEntry.find_by(name: params[:name], tag: params[:tag])
 
     @external_links = []
