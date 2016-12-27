@@ -65,10 +65,14 @@ module Catalog
 
     def repo_version(repo_url, filter=nil)
       g = Git.ls_remote(repo_url)
+      tags = g['tags'].keys.map do |tag|
+        # Trim dereference markers https://www.kernel.org/pub/software/scm/git/docs/gitrevisions.html
+        tag.sub(/\^.+\z/, '')
+      end.uniq
       if filter
-        match_requirement(g['tags'].keys, "~>#{filter}.0")
+        match_requirement(tags, "~>#{filter}.0")
       else
-        match_requirement(g['tags'].keys, '>= 0')
+        match_requirement(tags, '>= 0')
       end
     end
 
