@@ -1,8 +1,12 @@
 # Latestver
 
+[![Join the chat at https://gitter.im/binarybabel/Latestver](https://badges.gitter.im/binarybabel/Latestver.svg)](https://gitter.im/binarybabel/Latestver?utm_source=badge&utm_medium=badge&utm_content=badge)
+[![Dependency Status](https://gemnasium.com/badges/github.com/binarybabel/latestver.svg)](https://gemnasium.com/github.com/binarybabel/latestver)
+[![Code Climate](https://codeclimate.com/github/binarybabel/latestver/badges/gpa.svg)](https://codeclimate.com/github/binarybabel/latestver)
+[![Inline docs](http://inch-ci.org/github/binarybabel/latestver.svg?branch=master)](http://inch-ci.org/github/binarybabel/latestver)
+
 [![Docker Automated buil](https://img.shields.io/docker/automated/jrottenberg/ffmpeg.svg)](https://hub.docker.com/r/binarybabel/latestver/)
 [![AUR](https://img.shields.io/aur/license/yaourt.svg)](https://www.gnu.org/licenses/gpl-3.0.en.html)
-[![Join the chat at https://gitter.im/binarybabel/Latestver](https://badges.gitter.im/binarybabel/Latestver.svg)](https://gitter.im/binarybabel/Latestver?utm_source=badge&utm_medium=badge&utm_content=badge)
 
 Dependency monitoring web-application featuring webhooks, JSON API, and project-level tracking.
 
@@ -21,17 +25,19 @@ Latestver is available as a Docker Image: [hub.docker.com/r/binarybabel/latestve
 
 By default the application will be available from `http://localhost:3333`
 
+**Running Directly**
+
 ```
 docker run -p 3333:3333 -v $(pwd):/app/data --name latestver binarybabel/latestver
 ```
 
-Alternatively, **docker-compose.yml**
+**Using** `docker-compose.yml`
 
 ```
 version: '2'
 services:
   app:
-    images: binarybabel/latestver
+    image: binarybabel/latestver
     volumes:
       - .:/app/data
     ports:

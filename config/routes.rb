@@ -13,4 +13,5 @@ Rails.application.routes.draw do
   get 'log' => 'log#index', :as => 'log'
   get 'help' => 'help#index', :as => 'help'
   get 'api' => 'help#api', :as => 'api'
+  get 'ver' => 'help#version', :as => nil
 end

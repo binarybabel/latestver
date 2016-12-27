@@ -6,4 +6,9 @@ class HelpController < ApplicationController
   def api
     cache_this!
   end
+
+  def version
+    cache_this!
+    render plain: Latestver::VERSION
+  end
 end
