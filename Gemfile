@@ -2,7 +2,7 @@ source 'https://rubygems.org'
 
 gem 'puma'
 
-gem 'rails', '5.0.0.1'
+gem 'rails', '~> 5.0.1'
 gem 'sqlite3'
 gem 'annotate'
 gem 'config'
