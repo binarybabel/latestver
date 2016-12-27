@@ -27,8 +27,10 @@ module Catalog
       @vurls ||= {
           'jdk8' => 'http://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html',
           'jre8' => 'http://www.oracle.com/technetwork/java/javase/downloads/jre8-downloads-2133155.html',
-          'jdk7' => 'http://www.oracle.com/technetwork/java/javase/downloads/jdk7-downloads-1880260.html',
-          'jre7' => 'http://www.oracle.com/technetwork/java/javase/downloads/jre7-downloads-1880261.html',
+          'jdk7' => 'http://www.oracle.com/technetwork/java/javase/downloads/java-archive-downloads-javase7-521261.html',
+          'jre7' => 'http://www.oracle.com/technetwork/java/javase/downloads/java-archive-downloads-javase7-521261.html',
+          'jdk6' => 'http://www.oracle.com/technetwork/java/javase/downloads/java-archive-downloads-javase6-419409.html',
+          'jre6' => 'http://www.oracle.com/technetwork/java/javase/downloads/java-archive-downloads-javase6-419409.html',
       }
     end
 
@@ -87,6 +89,16 @@ module Catalog
       }.each do |name, tags|
         tags.each do |tag|
           find_or_create_by!(name: name, tag: tag)
+        end
+      end
+
+      if Rails.env.development?
+        {
+            'java' => %w(jdk6)
+        }.each do |name, tags|
+          tags.each do |tag|
+            find_or_create_by!(name: name, tag: tag)
+          end
         end
       end
     end
