@@ -1,7 +1,7 @@
 require 'versioneer'
 
 module Latestver
-  RELEASE = '1.5'
+  RELEASE = '1.6'
   begin
     VERSION = Versioneer::Git.new(__FILE__,
                                   :prereleases => %w(alpha beta),

@@ -6,7 +6,7 @@ if Rails.env.development?
     # File updated by [release:bump]
     version_file = 'config/version.rb'
     # How to determine current project version programmatically
-    version_lambda = lambda { Object.const_get(Rails.application.class.name.sub(/::.+$/, ''))::VERSION }
+    version_lambda = lambda { Object.const_get(Rails.application.class.name.sub(/::.+$/, ''))::RELEASE }
     # Default commit message (%s replaced by version)
     commit_message = 'Release %s'
     # Changelog file to read/write
@@ -69,7 +69,6 @@ if Rails.env.development?
         while segments.size < length + 1 # Version.bump strips last segment
           segments << 0
         end
-        segments << 0  # Version.bump strips last segment
         next_version = [Gem::Version.new(segments.join('.')).bump.to_s, suffix].compact.join('.')
       end
 
@@ -139,7 +138,8 @@ if Rails.env.development?
     task :tag do
       puts '** Tagging release'
       current_version = version_lambda.call
-      system "git tag -a v#{current_version} -m ' #{commit_message % [current_version]}'"
+      tag_mode = `[ -n "$(git config --local --get user.signingkey)" ] && echo "-s" || echo "-a"`.chomp
+      system "git tag #{tag_mode} v#{current_version} -m ' #{commit_message % [current_version]}'"
       system 'git tag -n | head -n 1'
     end
 

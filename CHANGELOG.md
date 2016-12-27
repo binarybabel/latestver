@@ -1,3 +1,10 @@
+### 1.6 (2016-12-27)
+
+* __`NEW`__ Add internal version tracking and changelog.
+* __`!!!`__ Fix Java catalog entries for archived versions. (<= JDK7)
+* __`!!!`__ Fix handling of dereference markers in Git tags.
+
+
 ### 1.5 (2016-12-08)
 
 * __`NEW`__ Allow "latest" version shortcut when creating instances.
