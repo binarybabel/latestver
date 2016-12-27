@@ -61,6 +61,12 @@ module Catalog
       links
     end
 
+    def self.reload_defaults!
+      create_with(
+          git_repo_url: 'https://github.com/binarybabel/latestver.git'
+      ).find_or_create_by!(name: 'latestver', tag: 'release')
+    end
+
     protected
 
     def repo_version(repo_url, filter=nil)
