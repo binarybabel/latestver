@@ -26,7 +26,7 @@ module Catalog
   class GitRepo < CatalogEntry
     validates :git_repo_url,
               presence: true,
-              format: {:with => /\Ahttp(s)?:\/\/.+/}
+              format: {:with => /\Ahttp(s)?:\/\/.+\z/}
 
     store :data, accessors: [ :git_repo_url ], coder: JSON
 

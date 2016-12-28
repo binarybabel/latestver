@@ -1,0 +1,43 @@
+{
+  "ignored_warnings": [
+    {
+      "warning_type": "Command Injection",
+      "warning_code": 14,
+      "fingerprint": "3f74096866285c97753049ff79f759d0f0ca71a4261f4af0bcf83906f1238a94",
+      "message": "Possible command injection",
+      "file": "app/views/rails_admin/main/refresh_entry.html.erb",
+      "line": 2,
+      "link": "http://brakemanscanner.org/docs/warning_types/command_injection/",
+      "code": "`rake catalog:refresh[#{@object.id.to_i}]`",
+      "render_path": null,
+      "location": {
+        "type": "template",
+        "template": "rails_admin/main/refresh_entry"
+      },
+      "user_input": "@object.id.to_i",
+      "confidence": "Medium",
+      "note": "Integer inputs only."
+    },
+    {
+      "warning_type": "File Access",
+      "warning_code": 16,
+      "fingerprint": "d79af3b83be6c9820be0ef68c3022fe904b1171d80e5fba13c80f30c5a2726e3",
+      "message": "Model attribute used in file name",
+      "file": "app/models/catalog/web_scraper.rb",
+      "line": 42,
+      "link": "http://brakemanscanner.org/docs/warning_types/file_access/",
+      "code": "open((web_page_url.to_s % ::CatalogEntry.all.map do\n [y.label, y.version]\n end.to_h.symbolize_keys))",
+      "render_path": null,
+      "location": {
+        "type": "method",
+        "class": "Catalog::WebScraper",
+        "method": "check_remote_version"
+      },
+      "user_input": "::CatalogEntry.all",
+      "confidence": "Weak",
+      "note": "Attribute has format validator."
+    }
+  ],
+  "updated": "2016-12-27 20:21:12 -0800",
+  "brakeman_version": "3.4.1"
+}

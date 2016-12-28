@@ -25,7 +25,7 @@ module Catalog
   class WebScraper < CatalogEntry
     validates :web_page_url,
               presence: true,
-              format: {:with => /\Ahttp(s)?:\/\/.+/}
+              format: {:with => /\Ahttp(s)?:\/\/.+\z/}
     validates_presence_of :include_regex
 
     store :data, accessors: [:web_page_url, :css_query, :xpath_query, :include_regex, :exclude_regex], coder: JSON

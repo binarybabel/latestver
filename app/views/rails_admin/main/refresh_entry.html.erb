@@ -1,5 +1,5 @@
 <% if params[:confirm] %>
-    <pre><%= `rake catalog:refresh[#{@object.id}]` %></pre>
+    <pre><%= `rake catalog:refresh[#{@object.id.to_i}]` %></pre>
     <a href="." class="btn btn-primary btn-lg">Return to Catalog</a>
 <% else %>
     <h4>
