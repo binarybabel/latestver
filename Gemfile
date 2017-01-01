@@ -10,7 +10,7 @@ gem 'rufus-scheduler'
 gem 'webhook'
 gem 'jbuilder', '~> 2.0'
 gem 'sdoc', '~> 0.4.0', group: :doc
-gem 'versioneer', '~> 0.1.0'
+gem 'versioneer', '~> 0.2'
 
 # Version checking helpers
 gem 'gems'
@@ -37,7 +37,7 @@ group :development, :test do
 end
 
 group :development do
-  gem 'web-console', '~> 2.0'
+  gem 'web-console', '~> 3.0'
   gem 'spring'
 end
 

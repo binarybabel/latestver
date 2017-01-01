@@ -5,7 +5,7 @@
 [![Code Climate](https://codeclimate.com/github/binarybabel/latestver/badges/gpa.svg)](https://codeclimate.com/github/binarybabel/latestver)
 [![Inline docs](http://inch-ci.org/github/binarybabel/latestver.svg?branch=master)](http://inch-ci.org/github/binarybabel/latestver)
 
-[![Docker Automated buil](https://img.shields.io/docker/automated/jrottenberg/ffmpeg.svg)](https://hub.docker.com/r/binarybabel/latestver/)
+[![Docker Automated build](https://img.shields.io/docker/automated/binarybabel/latestver.svg)](https://hub.docker.com/r/binarybabel/latestver/)
 [![AUR](https://img.shields.io/aur/license/yaourt.svg)](https://www.gnu.org/licenses/gpl-3.0.en.html)
 
 Dependency monitoring web-application featuring webhooks, JSON API, and project-level tracking.
