@@ -139,6 +139,22 @@ class CatalogEntry < ActiveRecord::Base
     nil
   end
 
+  def templated(name)
+    template = self.send(name)
+    params = template_params
+    counter = 0
+    while params.size > counter
+      counter = params.size
+      begin
+        return (template % params)
+      rescue KeyError => e
+        if (m = e.to_s.match(/key\{(.+)\}/))
+          params[m[1].to_sym] = 'UNDEFINED'
+        end
+      end
+    end
+  end
+
   ##
   ## =CALCULATED ATTRIBUTES=
   ## Can be overridden, but normally fend for themselves.
@@ -169,6 +185,21 @@ class CatalogEntry < ActiveRecord::Base
   def version_segments
     return [] unless version
     version.gsub(/[^0-9]+/, '-').split('-')
+  end
+
+  def template_params
+    params = ::CatalogEntry.all.map { |y| [y.label, y.version] }.to_h
+    params.merge({
+                          name: name,
+                          tag: tag,
+                          tag_version: scan_version(tag),
+                          tag_major: scan_number(tag),
+                          version: version,
+                      }).symbolize_keys
+  end
+
+  def self.template_help
+    '%{name} %{tag} %{tag_version} %{tag_major} %{NAME:TAG}'
   end
 
   ##
@@ -311,7 +342,7 @@ class CatalogEntry < ActiveRecord::Base
           end
           field :hidden
           field :external_links do
-            help 'HTML links <a></a>, (one per line). Type may also auto-add links on create.'
+            help 'HTML links <a></a> (one per line). Type may also auto-add links on create.'
           end
         end
       end
@@ -335,7 +366,7 @@ class CatalogEntry < ActiveRecord::Base
           end
           field :hidden
           field :external_links do
-            help 'HTML links <a></a>, (one per line)'
+            help 'HTML links <a></a> (one per line) — Vars: ' + ::CatalogEntry.template_help
           end
         end
       end

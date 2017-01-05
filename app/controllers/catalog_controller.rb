@@ -10,7 +10,7 @@ class CatalogController < ApplicationController
     @entry = CatalogEntry.find_by(name: params[:name], tag: params[:tag])
 
     @external_links = []
-    Nokogiri::HTML("<html>#{@entry.external_links}</html>").css('a').each do |link|
+    Nokogiri::HTML("<html>#{@entry.templated(:external_links)}</html>").css('a').each do |link|
       @external_links << {
           name: link.inner_text.strip,
           href: link['href']

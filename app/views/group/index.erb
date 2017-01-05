@@ -34,7 +34,7 @@
                     <%= text_field_tag("ver_#{i.id}", i.version, class: 'form-control2') %>
                     &nbsp;&lt;=&nbsp;
                     <i><%= i.latest_version %></i>
-                    <% Nokogiri::HTML("<html>#{i.catalog_entry.external_links}</html>").css('a').each do |link|
+                    <% Nokogiri::HTML("<html>#{i.catalog_entry.templated(:external_links)}</html>").css('a').each do |link|
                       link['target'] = '_blank'
                     %>
                         — <%= link.to_s.html_safe %>

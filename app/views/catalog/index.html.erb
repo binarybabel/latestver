@@ -18,7 +18,7 @@
         <td><%= entry.tag %></td>
         <td><%= entry.version %></td>
         <td>
-          <% Nokogiri::HTML("<html>#{entry.external_links}</html>").css('a').each do |link|
+          <% Nokogiri::HTML("<html>#{entry.templated(:external_links)}</html>").css('a').each do |link|
               link['target'] = '_blank'
           %>
           <%= link.to_s.html_safe %> &nbsp;
