@@ -19,6 +19,7 @@ Supports tracking the latest versions of your favorite software via:
 * NPM Packages
 * Web-page scraping
 
+
 ## Deploying Latestver Privately
 
 Latestver is available as a Docker Image: [hub.docker.com/r/binarybabel/latestver](https://hub.docker.com/r/binarybabel/latestver/)
@@ -45,6 +46,7 @@ services:
 
 ```
 
+
 ## Customizing
 
 ### Environment variables and defaults
@@ -57,7 +59,6 @@ Catalog Settings
  * default: 1h - how often catalog is refreshed, ex: _(7d, 1h, 15m, 60s)_
 * __CACHE\_CONTROL\_MAX\_AGE__
  * default: 0 - how many seconds browsers or proxies may cache catalog results
-
 
 Security Settings
 
@@ -78,13 +79,14 @@ You can create custom catalog models for advanced version checking.
 
 Your model should be namespaced `module Catalog` and reside within your data volume in a `lib/catalog/` subdirectory.
 
+
 ## Contributing
 
-1. Fork this repo
+1. Fork this repo on github.com and clone it to your workstation
 2. Create your feature branch (`git checkout -b my-new-feature`)
-3. Commit your changes (`git commit -a -m 'Added some feature'`)
+3. Commit your changes (`git commit -am 'Added some feature'`)
 4. Push the branch (`git push origin my-new-feature`)
-5. Create a new Pull Request
+5. Submit new Pull Request from GitHub
 
 
 ## Author and License
