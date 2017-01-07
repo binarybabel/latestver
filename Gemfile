@@ -34,6 +34,8 @@ group :development, :test do
   gem 'pry'
   gem 'pry-byebug'
   gem 'brakeman', :require => false
+  gem 'yard', :require => false
+  gem 'inch', :require => false
 end
 
 group :development do

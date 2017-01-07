@@ -5,6 +5,7 @@ require File.expand_path('../config/application', __FILE__)
 
 Rails.application.load_tasks
 
+desc 'Start Latestver application server'
 task :start do
   refresh = ENV['REFRESH_ENABLED']
   ENV['REFRESH_ENABLED'] = nil
@@ -19,5 +20,22 @@ task :start do
 
   ENV['REFRESH_ENABLED'] = refresh
   system 'rm -f tmp/pids/server.pid'
-  exec 'rails s -p 3333 -b "0.0.0.0"'
+  exec './bin/rails s -p 3333 -b "0.0.0.0"'
+end
+
+namespace :doc do
+  desc 'Start yard doc server'
+  task :start do
+    exec './bin/bundle exec yard server --reload'
+  end
+
+  desc 'Build yard documentation'
+  task :build do
+    exec './bin/bundle exec yard doc'
+  end
+
+  desc 'Suggest documentation improvements'
+  task :suggest do
+    exec './bin/bundle exec inch suggest'
+  end
 end

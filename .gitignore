@@ -11,10 +11,12 @@
 *.sqlite3
 *.sqlite3-journal
 
-# Ignore all logfiles and tempfiles.
+# Ignore logfiles, tempfiles, and generated docs.
 /log/*
 !/log/.keep
 /tmp
+/.yardoc
+/doc
 
 # Ignore local settings files.
 config/settings.local.yml
