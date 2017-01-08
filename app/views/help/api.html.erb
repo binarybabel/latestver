@@ -1,29 +1,57 @@
-<h3 class="sub-header">API Endpoints with Sample Output</h3>
+<h3 class="sub-header">API Endpoints with Example Output</h3>
 
 <br/>
-<h4>Catalog Entry (Single Field)</h4>
+<h4 id="entry-path">Catalog Entry &mdash; Single Field</h4>
 <p>
-  If you need a specific value from the catalog entry, you can query it directly and avoid parsing.
-  <em>Refer to the JSON example for field paths.</em>
+  If you need a specific value from the catalog entry, query it directly to avoid parsing.
+  <em><a href="#entry-json">Refer to the JSON example below for field paths</a>.</em>
 </p>
-<pre>/catalog-api/<span class="token"
->&lt;name&gt;</span>/<span class="token"
->&lt;tag&gt;</span>.txt?p=<span class="token"
->&lt;path.to.field&gt;</span></pre>
-<figure class="highlight">
-<pre><strong>$ curl -s <%= request.base_url %>/catalog-api/java/jdk8.txt?p=download_links.rpm</strong>
-http://download.oracle.com/otn-pub/java/jdk/8u111-b14/jdk-8u111-linux-x64.rpm</pre>
-</figure>
+
+<div class="form-group">
+  <div class="input-group blue">
+  <span class="input-group-addon">
+    <strong>GET</strong>
+  </span>
+    <%= code_control('endpoint oneline', '/catalog-api/<name>/<tag>.txt?p=<path>') %>
+  </div>
+</div>
+
+<div class="form-group" style="margin-bottom: 5px;">
+  <label class="control-label">Example</label>
+  <div class="input-group black">
+  <span class="input-group-addon">
+    <i class="fa fa-terminal"></i>
+  </span>
+    <%= code_control('terminal oneline', "curl -s #{request.base_url}/catalog-api/java/jdk8.txt?p=download_links.rpm") %>
+  </div>
+</div>
+
+<pre>http://download.oracle.com/otn-pub/java/jdk/8u111-b14/jdk-8u111-linux-x64.rpm</pre>
 
 <br/>
-<h4>Catalog Entry (JSON)</h4>
-<p><strong>Tip:</strong> <em>You can click any entry in the Catalog for a JSON API link.</em></p>
-<pre>/catalog-api/<span class="token"
->&lt;name&gt;</span>/<span class="token"
->&lt;tag&gt;</span>.json</pre>
-<figure class="highlight">
- <pre><strong>$ curl -s <%= request.base_url %>/catalog-api/java/jdk8.json</strong>
-{
+<h4 id="entry-json">Catalog Entry &mdash; JSON</h4>
+<p><em><strong>Tip:</strong> Click an entry in the Catalog to see its specific output.</em></p>
+
+<div class="form-group">
+  <div class="input-group blue">
+  <span class="input-group-addon">
+    <strong>GET</strong>
+  </span>
+    <%= code_control('endpoint oneline', '/catalog-api/<name>/<tag>.json') %>
+  </div>
+</div>
+
+<div class="form-group" style="margin-bottom: 5px;">
+  <label class="control-label">Example</label>
+  <div class="input-group black">
+  <span class="input-group-addon">
+    <i class="fa fa-terminal"></i>
+  </span>
+    <%= code_control('terminal oneline', "curl -s #{request.base_url}/catalog-api/java/jdk8.json") %>
+  </div>
+</div>
+
+<pre>{
   "name": "java",
   "tag": "jdk8",
   "version": "8u111-b14",
@@ -58,4 +86,3 @@ http://download.oracle.com/otn-pub/java/jdk/8u111-b14/jdk-8u111-linux-x64.rpm</p
   "catalog_type": "Catalog::OracleJava",
   "api_revision": 1
 }</pre>
-</figure>

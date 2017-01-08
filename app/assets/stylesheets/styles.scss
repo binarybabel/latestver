@@ -1,0 +1,51 @@
+div.main a {
+    border-bottom: 1px dotted #337ab7;
+    white-space: nowrap;
+}
+
+code.version {
+    color: #202020;
+    background-color: #D4F4DE;
+}
+
+code.terminal {
+    background-color: #464646 !important;
+    color: #fff !important;
+}
+
+code.oneline {
+    white-space: pre !important;
+    overflow-x: auto !important;
+}
+
+.input-group.blue {
+    .input-group-addon {
+        background-color: #d5ecf8;
+        border-color: #6ea2c0;
+    }
+    .form-control {
+        border-color: #6ea2c0;
+    }
+    code span.token {
+        background-color: #d5ecf8;
+        border: 1px dashed #6ea2c0;
+        padding: 0 4px;
+    }
+}
+
+.input-group.black {
+    .input-group-addon {
+        background-color: #000;
+        border-color: #000;
+        color: #fff;
+    }
+    .form-control {
+        border-color: #000;
+        color: #000;
+    }
+    code span.token {
+        background-color: #d5ecf8;
+        border: 1px dotted #337ab7;
+        padding: 0 4px;
+    }
+}

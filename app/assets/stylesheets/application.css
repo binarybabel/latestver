@@ -15,7 +15,3 @@
  *= require_self
  */
 
-div.main a {
-    border-bottom: 1px dotted #337ab7;
-    white-space: nowrap;
-}
