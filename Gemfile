@@ -36,6 +36,8 @@ group :development, :test do
   gem 'brakeman', :require => false
   gem 'yard', :require => false
   gem 'inch', :require => false
+  gem 'guard', :require => false
+  gem 'guard-livereload', :require => false
 end
 
 group :development do
