@@ -1,0 +1,5 @@
+<% Nokogiri::HTML("<html>#{entry.templated(:external_links)}</html>").css('a').each do |link|
+  link['target'] = '_blank'
+%>
+    <%= link.to_s.html_safe %> &nbsp;
+<% end %>

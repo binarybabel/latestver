@@ -1,0 +1,36 @@
+<div class="jumbotron text-center" style="margin-top: 20px; margin-bottom: 10px;">
+  <h4 style="margin: 0;">
+    <%= @entry.label %>
+  </h4>
+</div>
+
+<div class="row">
+  <div class="<%= @has_links && 'col-sm-6 text-right' || 'col-xs-12 text-center' %>">
+    <strong><em>Current Version</em></strong>
+    <code class="version"><%= @entry.version %></code>
+    <a href="#copyversion"><i class="fa fa-clipboard"></i></a>
+    &mdash;
+    <a href="#history"><i class="fa fa-history"></i> History</a>
+  </div>
+  <% if @has_links %>
+      <div class="col-sm-6 text-left">
+        <strong class="hidden-xs"><em>External Links</em></strong>
+        &nbsp;
+        <%= render partial: 'shared/entry_links', locals: {entry: @entry} %>
+      </div>
+  <% end %>
+</div>
+
+<br/>
+
+<h4 class="sub-header">Badges</h4>
+
+<br />
+<h4 class="sub-header">JSON API</h4>
+<div class="form-group black" style="margin-bottom: 5px;">
+  <%= input_sample("curl -s #{catalog_view_api_url(format: 'json')}", theme: 'black') %>
+</div>
+<pre><%= JSON.pretty_generate(@data) %></pre>
+
+<br />
+<h4 class="sub-header" id="history">Version History</h4>

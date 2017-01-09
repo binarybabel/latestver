@@ -20,11 +20,7 @@
           <td class="text-danger"><%= l.version_from || '—' %></td>
           <td class="text-success"><strong><%= l.version_to %></strong></td>
           <td>
-            <% Nokogiri::HTML("<html>#{l.catalog_entry.templated(:external_links)}</html>").css('a').each do |link|
-              link['target'] = '_blank'
-            %>
-                <%= link.to_s.html_safe %> &nbsp;
-            <% end %>
+            <%= render partial: 'shared/entry_links', locals: {entry: l.catalog_entry} %>
           </td>
         </tr>
     <% end %>

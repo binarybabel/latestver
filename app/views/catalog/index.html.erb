@@ -14,15 +14,11 @@
   <tbody>
   <% @catalog.each do |entry| %>
       <tr>
-        <td><a href="<%= catalog_view_api_path(name: entry.name, tag: entry.tag, format: :json) %>"><%= entry.name %></a></td>
+        <td><a href="<%= catalog_view_path(name: entry.name, tag: entry.tag) %>"><%= entry.name %></a></td>
         <td><%= entry.tag %></td>
         <td><%= entry.version %></td>
         <td>
-          <% Nokogiri::HTML("<html>#{entry.templated(:external_links)}</html>").css('a').each do |link|
-              link['target'] = '_blank'
-          %>
-          <%= link.to_s.html_safe %> &nbsp;
-          <% end %>
+          <%= render partial: 'shared/entry_links', locals: {entry: entry} %>
         </td>
       </tr>
   <% end %>

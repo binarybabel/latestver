@@ -1,3 +1,11 @@
 // Place all the styles related to the catalog controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+
+body.catalog-view {
+    .jumbotron {
+        border: 2px solid #000;
+        background-color: #fff;
+        padding: 10px;
+    }
+}
