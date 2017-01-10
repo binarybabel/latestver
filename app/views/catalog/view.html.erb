@@ -6,9 +6,8 @@
 
 <div class="row">
   <div class="<%= @has_links && 'col-sm-6 text-right' || 'col-xs-12 text-center' %>">
-    <strong><em>Current Version</em></strong>
+    <strong><em>Latest Version</em></strong>
     <code class="version"><%= @entry.version %></code>
-    <a href="#copyversion"><i class="fa fa-clipboard"></i></a>
     &mdash;
     <a href="#history"><i class="fa fa-history"></i> History</a>
   </div>
@@ -22,15 +21,47 @@
 </div>
 
 <br/>
-
 <h4 class="sub-header">Badges</h4>
+<div class="row">
+  <div class="col-sm-6 text-center">
+    <h5 class="text-center">Blue badges always display the latest version for the catalog entry</h5>
+    <%= badge_snippet(@entry).html_safe %>
+    <br/><br/>
+    <%= render 'shared/entry_badge_embed' %>
+    <p>&nbsp;</p>
+  </div>
+  <div class="col-sm-6 text-center">
+    <h5 class="text-center">Green badges will turn red if the set version is no longer the latest</h5>
+    <%= badge_snippet(@entry, 'html', @entry.version).html_safe %>
+    <br/><br/>
+    <%= render partial: 'shared/entry_badge_embed', locals: {badge_version: @entry.version} %>
+    <p class="small"><em>Modify the <code>?v=</code> query parameter to change the set version.</em></p>
+  </div>
+</div>
 
-<br />
-<h4 class="sub-header">JSON API</h4>
+<br/>
+<h4 class="sub-header">JSON API Usage</h4>
+<p>
+  The following example shows how to access this entry as a JSON object.
+  See the <%= link_to 'API Documentation', api_path %> for more detail, including how to
+  return the value of a single field.
+</p>
 <div class="form-group black" style="margin-bottom: 5px;">
-  <%= input_sample("curl -s #{catalog_view_api_url(format: 'json')}", theme: 'black') %>
+  <%= code_sample("curl -s #{catalog_view_api_url(format: 'json')}", theme: 'black') %>
 </div>
 <pre><%= JSON.pretty_generate(@data) %></pre>
 
-<br />
+<br/>
 <h4 class="sub-header" id="history">Version History</h4>
+<%= render 'shared/entry_version_history' %>
+
+<script>
+  $(function () {
+    var clipboard = new Clipboard('.clipboard');
+    clipboard.on('success', function(e) {
+      e.clearSelection();
+    });
+    clipboard.on('error', function(e) {
+    });
+  });
+</script>

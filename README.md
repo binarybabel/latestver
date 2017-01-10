@@ -108,3 +108,13 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 ```
+
+
+## Project Includes
+Latestver utilizes the following open-source projects...
+
++ Bootstrap -- _[getbootstrap.com](http://getbootstrap.com/)_
++ Font Awesome -- _[fontawesome.io](http://fontawesome.io/)_
++ Shields -- _[shields.io](http://shields.io/)_
+
+Other dependencies are enumerated in `Dockerfile` and `Gemfile`.

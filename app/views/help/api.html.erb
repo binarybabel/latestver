@@ -8,12 +8,12 @@
 </p>
 
 <div class="form-group">
-  <%= input_sample('/catalog-api/<name>/<tag>.txt?p=<path>', {icon: 'plug', label: 'GET', theme: 'blue'}) %>
+  <%= code_sample('/catalog-api/<name>/<tag>.txt?p=<path>', {icon: 'plug', label: 'GET', theme: 'blue'}) %>
 </div>
 
 <div class="form-group" style="margin-bottom: 5px;">
   <label class="control-label">Example</label>
-  <%= input_sample("curl -s #{request.base_url}/catalog-api/java/jdk8.txt?p=download_links.rpm", theme: 'black') %>
+  <%= code_sample("curl -s #{request.base_url}/catalog-api/<java>/<jdk8>.txt?p=<download_links.rpm>", theme: 'black') %>
 </div>
 
 <pre>http://download.oracle.com/otn-pub/java/jdk/8u111-b14/jdk-8u111-linux-x64.rpm</pre>
@@ -23,12 +23,12 @@
 <p><em><strong>Tip:</strong> Click an entry in the Catalog to see its specific output.</em></p>
 
 <div class="form-group">
-  <%= input_sample('/catalog-api/<name>/<tag>.json', {icon: 'plug', label: 'GET', theme: 'blue'}) %>
+  <%= code_sample('/catalog-api/<name>/<tag>.json', {icon: 'plug', label: 'GET', theme: 'blue'}) %>
 </div>
 
 <div class="form-group" style="margin-bottom: 5px;">
   <label class="control-label">Example</label>
-  <%= input_sample("curl -s #{request.base_url}/catalog-api/java/jdk8.json", theme: 'black') %>
+  <%= code_sample("curl -s #{request.base_url}/catalog-api/<java>/<jdk8>.json", theme: 'black') %>
 </div>
 
 <pre>{

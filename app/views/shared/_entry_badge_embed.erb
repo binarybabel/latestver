@@ -1,0 +1,43 @@
+<%
+  # Params
+  entry ||= @entry
+  badge_version ||= nil
+
+  # Options
+  badge_formats = {
+      html: 'HTML',
+      md: 'Markdown',
+  }
+
+  id_prefix = "ce_#{entry.id}_#{badge_version.to_s.gsub(/[^0-9A-Z]/i, '')}_"
+%>
+<ul class="nav nav-tabs" role="tablist">
+  <% badge_formats.each do |fmt, title| %>
+      <li class="<%= active_c fmt == :html %>">
+        <a href="#<%= id_prefix + fmt.to_s %>" data-toggle="tab"><%= title %></a></li>
+  <% end %>
+</ul>
+<div class="tab-content">
+  <% badge_formats.each do |fmt, title| %>
+      <div class="tab-pane <%= active_c fmt == :html %>" id="<%= id_prefix + fmt.to_s %>">
+        <div class="form-group">
+          <div class="col-xs-12">
+            <div class="input-group">
+              <span class="input-group-addon" style="width: 100px;"><%= title %></span>
+              <%= text_field_tag(
+                      id_prefix + fmt.to_s + '_input',
+                      badge_snippet(entry, fmt.to_s, badge_version),
+                      class: 'form-control') %>
+              <span class="input-group-btn">
+                <button class="btn btn-default clipboard"
+                        type="button"
+                        data-clipboard-target="#<%= id_prefix + fmt.to_s + '_input' %>">
+                  <i class="fa fa-clipboard"></i>
+                </button>
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+  <% end %>
+</div>

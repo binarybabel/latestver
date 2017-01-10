@@ -25,7 +25,7 @@ class CatalogEntry < ActiveRecord::Base
   validates :name, :type, :tag, presence: true
   validates :tag, uniqueness: {scope: :name}
 
-  has_many :catalog_log_entries, dependent: :destroy
+  has_many :catalog_log_entries, -> { order 'created_at DESC' }, dependent: :destroy
   has_many :catalog_webhooks, dependent: :destroy
   has_many :instances, dependent: :destroy
 
@@ -169,7 +169,7 @@ class CatalogEntry < ActiveRecord::Base
         'prerelease': '',
     }
     begin
-      if (v = Mixlib::Versioning.parse(version))
+      if (v = Mixlib::Versioning.parse version)
         parts['major'] = v.major
         parts['minor'] = v.minor
         parts['patch'] = v.patch
