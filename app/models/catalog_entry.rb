@@ -207,7 +207,13 @@ class CatalogEntry < ActiveRecord::Base
   ##
 
   def label
-    "#{name}:#{tag}"
+    if tag == 'latest'
+      name
+    elsif tag.to_s.index(name) === 0
+      tag
+    else
+      "#{name}:#{tag}"
+    end
   end
 
   def visible
