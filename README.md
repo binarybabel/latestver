@@ -115,6 +115,7 @@ Latestver utilizes the following open-source projects...
 
 + Bootstrap -- _[getbootstrap.com](http://getbootstrap.com/)_
 + Font Awesome -- _[fontawesome.io](http://fontawesome.io/)_
++ RailsAdmin -- _[github](https://github.com/sferik/rails_admin)_
 + Shields -- _[shields.io](http://shields.io/)_
 
 Other dependencies are enumerated in `Dockerfile` and `Gemfile`.
