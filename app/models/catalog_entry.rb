@@ -202,6 +202,10 @@ class CatalogEntry < ActiveRecord::Base
     '%{name} %{tag} %{tag_version} %{tag_major} %{NAME:TAG}'
   end
 
+  def self.model_help
+    I18n.t 'admin.help.models.catalog_entry'
+  end
+
   ##
   ## =MAIN FUNCTIONS=
   ##
@@ -289,6 +293,7 @@ class CatalogEntry < ActiveRecord::Base
   def self.configure_admin(klass)
     klass.rails_admin do
       label klass.to_s.demodulize.titleize
+      navigation_label I18n.t 'app.nav.catalog'
       object_label_method do
         :label
       end

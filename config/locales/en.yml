@@ -28,13 +28,12 @@ en:
       catalog_webhook:
         one: 'Catalog Webhook'
         other: 'Catalog Webhooks'
-      group:
-        one: 'Group / Project'
-        other: 'Groups / Projects'
-    attributes:
-      instance:
-        group: 'Group / Project'
-
+#      group:
+#        one: 'Project'
+#        other: 'Projects'
+#    attributes:
+#      instance:
+#        group: 'Project'
   app:
     nav:
       title: 'Latestver'
@@ -43,7 +42,7 @@ en:
       admin: 'Admin'
       api: 'API'
       catalog: 'Catalog'
-      groups: 'Projects'
+      groups: 'Project Management'
       help: 'Help'
       log: 'Log'
       github: 'GitHub'
@@ -65,3 +64,24 @@ en:
         title: 'Refresh Entry'
     misc:
       refresh: ""
+      navigation: 'System'
+    help:
+      models:
+        catalog_entry: >
+          <strong>The Latestver Catalog configures which external dependencies you want to track.</strong>
+          <br />
+          Entries can be displayed directly on the frontend, or used within specific project groups.
+        catalog_webhook: >
+          <strong>Webhooks are triggered after a catalog refresh updates an entry to a newer version.</strong>
+          <br />
+          Currently supporting generic HTTP POST or invoking custom CURL commands.
+        group: >
+          <strong>Groups bundle together a collection of catalog entries and track
+          the deployed versions.</strong>
+          <br />
+          The frontend displays groups in the sidebar. When selected the catalog
+          is filtered to the group, and highlighted to show which instances are out-of-date.
+        instance: >
+          <strong>Instances record the deployed version of catalog entries in a project group.</strong>
+          <br />
+          Once added the instance versions may be updated from the frontend interface.

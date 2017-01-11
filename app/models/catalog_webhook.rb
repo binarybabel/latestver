@@ -21,7 +21,12 @@ class CatalogWebhook < ApplicationRecord
 
   belongs_to :catalog_entry
 
+  def self.model_help
+    I18n.t 'admin.help.models.catalog_webhook'
+  end
+
   rails_admin do
+    navigation_label I18n.t 'app.nav.catalog'
     list do
       sort_by :catalog_entry
       field :catalog_entry do

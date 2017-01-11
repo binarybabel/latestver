@@ -57,6 +57,10 @@ class Instance < ActiveRecord::Base
     update! if version == 'latest'
   end
 
+  def self.model_help
+    I18n.t 'admin.help.models.instance'
+  end
+
   protected
 
   def is_version?(value)
@@ -70,6 +74,7 @@ class Instance < ActiveRecord::Base
   end
 
   rails_admin do
+    navigation_label I18n.t 'app.nav.groups'
     list do
       sort_by :group
       field :group do
@@ -80,7 +85,6 @@ class Instance < ActiveRecord::Base
       field :version
       field :description
     end
-
     create do
       field :group
       field :catalog_entry
@@ -89,7 +93,6 @@ class Instance < ActiveRecord::Base
       end
       field :description
     end
-
     edit do
       field :group
       field :catalog_entry
