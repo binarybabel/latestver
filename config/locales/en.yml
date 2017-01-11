@@ -62,6 +62,10 @@ en:
         menu: 'Refresh Entry'
         breadcrumb: 'Refresh Entry'
         title: 'Refresh Entry'
+      trigger_webhook:
+        menu: 'Test Webhook'
+        breadcrumb: 'Test Webhook'
+        title: 'Test Webhook'
     misc:
       refresh: ""
       navigation: 'System'

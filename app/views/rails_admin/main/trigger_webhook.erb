@@ -1,0 +1,14 @@
+<% if params[:confirm] %>
+    <% @object.trigger! %>
+    <pre><%= @object.last_error || 'SUCCESS' %></pre>
+    <a href="." class="btn btn-primary btn-lg">Return to Webhooks</a>
+<% else %>
+    <h4>
+      This function manually triggers the webhook for <strong><%= @object.description %></strong>
+    </h4>
+    <p class="text-warning">
+      An HTTP POST will be sent to <code><%= @object.url %></code>
+    </p>
+    <br />
+    <a href="?confirm=true" class="btn btn-warning btn-lg" onclick="$(this).replaceWith('<strong>Please wait, this may take a minute...</strong>');">Test Now</a>
+<% end %>

@@ -7,6 +7,9 @@ RailsAdmin::Config::Actions.register(RailsAdmin::RefreshCatalog)
 require_relative Rails.root.join('lib', 'rails_admin', 'refresh_entry.rb')
 RailsAdmin::Config::Actions.register(RailsAdmin::RefreshEntry)
 
+require_relative Rails.root.join('lib', 'rails_admin', 'trigger_webhook.rb')
+RailsAdmin::Config::Actions.register(RailsAdmin::TriggerWebhook)
+
 RailsAdmin.config do |config|
 
   ### Popular gems integration
@@ -59,5 +62,6 @@ RailsAdmin.config do |config|
     refresh_catalog
     refresh_entry
     reload_defaults
+    trigger_webhook
   end
 end

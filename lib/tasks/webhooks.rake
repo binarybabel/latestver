@@ -10,22 +10,13 @@ namespace :webhooks do
       entry.catalog_entry.catalog_webhooks.each do |webhook|
         puts '------------------------------------------------------------'
         puts "-> #{webhook.url}"
-        webhook.last_triggered = DateTime.now
-        webhook.last_error = nil
-        begin
-          code, msg, body = Webhook.post(webhook.url)
-          if code == '200'
-            puts code
-          else
-            webhook.last_error = "#{code} #{msg}"
-            puts "<- #{code} #{msg}"
-          end
-        rescue => e
-          webhook.last_error = e.message
+        webhook.trigger!
+        if webhook.last_error
           puts '!! ERROR !!'
-          puts e.message
+          puts webhook.last_error
+        else
+          puts 'OK'
         end
-        webhook.save
         puts '------------------------------------------------------------'
       end
       entry.webhook_triggered = true
