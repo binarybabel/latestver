@@ -1,6 +1,24 @@
 {
   "ignored_warnings": [
     {
+      "warning_type": "Cross Site Scripting",
+      "warning_code": 2,
+      "fingerprint": "29e6dca47e965e13f917397ff12cbeb8c2451b4ddc8c67bf5e13000773a09d5c",
+      "message": "Unescaped model attribute",
+      "file": "app/views/catalog/view.html.erb",
+      "line": 35,
+      "link": "http://brakemanscanner.org/docs/warning_types/cross_site_scripting",
+      "code": "badge_snippet(CatalogEntry.find_by!(:name => params[:name], :tag => params[:tag]), \"html\", CatalogEntry.find_by!(:name => params[:name], :tag => params[:tag]).version)",
+      "render_path": [{"type":"controller","class":"CatalogController","method":"view","line":41,"file":"app/controllers/catalog_controller.rb"}],
+      "location": {
+        "type": "template",
+        "template": "catalog/view"
+      },
+      "user_input": "CatalogEntry.find_by!(:name => params[:name], :tag => params[:tag])",
+      "confidence": "Weak",
+      "note": "Snippet output safe"
+    },
+    {
       "warning_type": "Command Injection",
       "warning_code": 14,
       "fingerprint": "3f74096866285c97753049ff79f759d0f0ca71a4261f4af0bcf83906f1238a94",
@@ -19,25 +37,62 @@
       "note": "Integer inputs only."
     },
     {
-      "warning_type": "File Access",
-      "warning_code": 16,
-      "fingerprint": "d79af3b83be6c9820be0ef68c3022fe904b1171d80e5fba13c80f30c5a2726e3",
-      "message": "Model attribute used in file name",
-      "file": "app/models/catalog/web_scraper.rb",
-      "line": 42,
-      "link": "http://brakemanscanner.org/docs/warning_types/file_access/",
-      "code": "open((web_page_url.to_s % ::CatalogEntry.all.map do\n [y.label, y.version]\n end.to_h.symbolize_keys))",
+      "warning_type": "Redirect",
+      "warning_code": 18,
+      "fingerprint": "5808f97232babcae850f1799e0890d30147078ee592478b0dfc4b9f4a0baf86b",
+      "message": "Possible unprotected redirect",
+      "file": "app/controllers/catalog_controller.rb",
+      "line": 95,
+      "link": "http://brakemanscanner.org/docs/warning_types/redirect/",
+      "code": "redirect_to((\"https://img.shields.io/badge/#{(params[\"label\"] or CatalogEntry.find_by!(:name => params[:name], :tag => params[:tag]).label)}-#{(CatalogEntry.find_by!(:name => params[:name], :tag => params[:tag]).version or URI.encode(params[\"v\"])).gsub(\"-\", \"--\")}-#{(\"blue\" or (((params[\"v\"] == CatalogEntry.find_by!(:name => params[:name], :tag => params[:tag]).version) and \"brightgreen\") or \"red\"))}.svg\" or r[\"location\"]), :status => :found)",
       "render_path": null,
       "location": {
         "type": "method",
-        "class": "Catalog::WebScraper",
-        "method": "check_remote_version"
+        "class": "CatalogController",
+        "method": "view"
       },
-      "user_input": "::CatalogEntry.all",
+      "user_input": "CatalogEntry.find_by!(:name => params[:name], :tag => params[:tag]).label",
+      "confidence": "High",
+      "note": "Static host in Production"
+    },
+    {
+      "warning_type": "Command Injection",
+      "warning_code": 14,
+      "fingerprint": "9cbd6d01f7f094a4fc75d1719be7989ee4196beed4dc6d1d36dabfeb9c7a4c33",
+      "message": "Possible command injection",
+      "file": "app/models/catalog_webhook.rb",
+      "line": 29,
+      "link": "http://brakemanscanner.org/docs/warning_types/command_injection/",
+      "code": "`#{(self.command % catalog_entry.template_params.merge(:url => url))} 2>&1`",
+      "render_path": null,
+      "location": {
+        "type": "method",
+        "class": "CatalogWebhook",
+        "method": "trigger!"
+      },
+      "user_input": "(self.command % catalog_entry.template_params.merge(:url => url))",
+      "confidence": "Medium",
+      "note": "Intentional/Acceptable risk vs reward Dockerized"
+    },
+    {
+      "warning_type": "Cross Site Scripting",
+      "warning_code": 2,
+      "fingerprint": "eb7ba0dd989d6616ed7ed6e7d039bb8f514854b3b8c7efa0f02abf56c4ba32c3",
+      "message": "Unescaped model attribute",
+      "file": "app/views/catalog/view.html.erb",
+      "line": 28,
+      "link": "http://brakemanscanner.org/docs/warning_types/cross_site_scripting",
+      "code": "badge_snippet(CatalogEntry.find_by!(:name => params[:name], :tag => params[:tag]))",
+      "render_path": [{"type":"controller","class":"CatalogController","method":"view","line":41,"file":"app/controllers/catalog_controller.rb"}],
+      "location": {
+        "type": "template",
+        "template": "catalog/view"
+      },
+      "user_input": "CatalogEntry.find_by!(:name => params[:name], :tag => params[:tag])",
       "confidence": "Weak",
-      "note": "Attribute has format validator."
+      "note": "Snippet output safe"
     }
   ],
-  "updated": "2016-12-27 20:21:12 -0800",
+  "updated": "2017-01-14 01:34:04 -0800",
   "brakeman_version": "3.4.1"
 }

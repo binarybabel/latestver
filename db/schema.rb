@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161126045910) do
+ActiveRecord::Schema.define(version: 20170114014452) do
 
   create_table "catalog_entries", force: :cascade do |t|
     t.string   "name",                           null: false
@@ -42,6 +42,7 @@ ActiveRecord::Schema.define(version: 20161126045910) do
   create_table "catalog_webhooks", force: :cascade do |t|
     t.integer  "catalog_entry_id", null: false
     t.string   "url",              null: false
+    t.string   "command",          null: false
     t.string   "description",      null: false
     t.datetime "last_triggered"
     t.string   "last_error"

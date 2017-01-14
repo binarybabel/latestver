@@ -16,10 +16,8 @@
 #  index_catalog_webhooks_on_catalog_entry_id  (catalog_entry_id)
 #
 
-require 'webhook'
-
 class CatalogWebhook < ApplicationRecord
-  validates_presence_of :catalog_entry, :url, :description
+  validates_presence_of :catalog_entry, :url, :command, :description
 
   belongs_to :catalog_entry
 
@@ -27,9 +25,10 @@ class CatalogWebhook < ApplicationRecord
     self.last_triggered = DateTime.now
     self.last_error = nil
     begin
-      code, msg, body = Webhook.post(url)
-      if code != '200'
-        self.last_error = "#{code} #{msg}"
+      cmd = self.command % catalog_entry.template_params.merge({url: url})
+      out = `#{cmd} 2>&1`
+      if $? != 0
+        self.last_error = out
       end
     rescue => e
       self.last_error = e.message
@@ -57,11 +56,15 @@ class CatalogWebhook < ApplicationRecord
       field :catalog_entry
       field :url
       field :description
+      field :command do
+        default_value 'curl -f -sS -X POST %{url}'
+      end
     end
     edit do
       field :catalog_entry
       field :url
       field :description
+      field :command
       field :last_triggered
       field :last_error
     end

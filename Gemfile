@@ -7,7 +7,6 @@ gem 'sqlite3'
 gem 'annotate'
 gem 'config'
 gem 'rufus-scheduler'
-gem 'webhook'
 gem 'jbuilder', '~> 2.0'
 gem 'sdoc', '~> 0.4.0', group: :doc
 gem 'versioneer', '~> 0.3'
