@@ -228,25 +228,37 @@ class CatalogEntry < ActiveRecord::Base
     begin
       v = check_remote_version
       unless v.kind_of?(FalseClass)
-        if v.nil? or not v.kind_of?(String) or v.empty?
-          raise 'Remote failed to return new version.'
-        else
+        if (v.kind_of?(String) and not v.empty?) or (v.kind_of?(Hash) and not v[:version].to_s.empty?)
+          vv = v.kind_of?(String) && v || v[:version]
+
           CatalogEntry.transaction do
             self.refreshed_at = DateTime.now
-            if version != v
+
+            if version != vv
               self.version_date = DateTime.now
               unless self.no_log
                 CatalogLogEntry.create!({
                                             catalog_entry: self,
                                             version_from: version,
-                                            version_to: v
+                                            version_to: vv
                                         })
               end
             end
-            self.version = v
+
+            if v.kind_of? Hash
+              v.delete(:version)
+              v.each do |k,v|
+                self.send("#{k}=".to_sym, v)
+              end
+            end
+            self.version = vv
             self.last_error = nil
+
             save!
           end
+
+        else
+          raise 'Remote failed to return new version.'
         end
       end
     rescue => e

@@ -23,6 +23,8 @@ require 'open-uri'
 
 module Catalog
   class OracleJava < CatalogEntry
+    store :data, accessors: [ :download_hash ], coder: JSON
+
     def vendor_urls
       @vurls ||= {
           'jdk8' => 'http://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html',
@@ -40,8 +42,12 @@ module Catalog
           major = scan_number(tag)
           raise "Unknown Java tag (#{tag})" unless vendor_urls.include?(tag)
           html = open(vendor_urls[tag]) { |f| f.read }
-          m = html.match(%r{/java/jdk/(#{major}u[0-9]+-b[0-9]+)})
-          m && m[1]
+          if (m = html.match(%r{/java/jdk/(#{major}u[0-9]+-b[0-9]+)/([a-f0-9]{32})?}))
+            {
+                version: m[1],
+                download_hash: m[2]
+            }
+          end
       end
     end
 
@@ -67,11 +73,12 @@ module Catalog
 
     def download_links
       return Hash.new unless version
+      h = version_segments[0].to_i >= 8 && download_hash.to_s + '/' || ''
       {
-          'rpm': "http://download.oracle.com/otn-pub/java/jdk/#{version}/#{java_type}-#{version_segments[0]}u#{version_segments[1]}-linux-x64.rpm",
-          'tgz': "http://download.oracle.com/otn-pub/java/jdk/#{version}/#{java_type}-#{version_segments[0]}u#{version_segments[1]}-linux-x64.tar.gz",
-          'dmg': "http://download.oracle.com/otn-pub/java/jdk/#{version}/#{java_type}-#{version_segments[0]}u#{version_segments[1]}-macosx-x64.dmg",
-          'exe': "http://download.oracle.com/otn-pub/java/jdk/#{version}/#{java_type}-#{version_segments[0]}u#{version_segments[1]}-windows-x64.exe",
+          'rpm': "http://download.oracle.com/otn-pub/java/jdk/#{version}/#{h}#{java_type}-#{version_segments[0]}u#{version_segments[1]}-linux-x64.rpm",
+          'tgz': "http://download.oracle.com/otn-pub/java/jdk/#{version}/#{h}#{java_type}-#{version_segments[0]}u#{version_segments[1]}-linux-x64.tar.gz",
+          'dmg': "http://download.oracle.com/otn-pub/java/jdk/#{version}/#{h}#{java_type}-#{version_segments[0]}u#{version_segments[1]}-macosx-x64.dmg",
+          'exe': "http://download.oracle.com/otn-pub/java/jdk/#{version}/#{h}#{java_type}-#{version_segments[0]}u#{version_segments[1]}-windows-x64.exe",
       }
     end
 
