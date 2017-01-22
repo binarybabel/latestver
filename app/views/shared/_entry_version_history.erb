@@ -9,8 +9,8 @@
     <tr>
       <th>Timestamp</th>
       <th>Catalog Entry</th>
-      <th>Version From</th>
       <th>Version To</th>
+      <th>Version From</th>
       <th>Links</th>
     </tr>
     </thead>
@@ -18,10 +18,10 @@
     <% entry.catalog_log_entries.each do |l| %>
         <tr>
           <td><%= l.created_at %></td>
-          <td><a href="<%= catalog_view_path(name: l.catalog_entry.name, tag: l.catalog_entry.tag, format: :json) %>"
+          <td><a href="<%= catalog_view_path(name: l.catalog_entry.name, tag: l.catalog_entry.tag) %>"
           ><%= l.catalog_entry.label %></a></td>
-          <td class="text-danger"><%= l.version_from || '—' %></td>
           <td class="text-success"><strong><%= l.version_to %></strong></td>
+          <td class="text-danger"><%= l.version_from || '—' %></td>
           <td>
             <%= render partial: 'shared/entry_links', locals: {entry: l.catalog_entry} %>
           </td>

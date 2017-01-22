@@ -60,8 +60,8 @@ RailsAdmin.config do |config|
     show_in_app
 
     refresh_catalog
-    refresh_entry
     reload_defaults
+    refresh_entry
     trigger_webhook
   end
 end
