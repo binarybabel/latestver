@@ -22,7 +22,9 @@
 require 'mixlib/versioning'
 
 class CatalogEntry < ActiveRecord::Base
-  validates :name, :type, :tag, presence: true
+  validates_presence_of :type
+  validates :name, :tag, presence: true,
+            format: {with: /\A[a-z0-9][a-z0-9_\.-]+[a-z0-9]\z/i, message: 'allows letters, numbers, hyphens, underscores, and full-stops.'}
   validates :tag, uniqueness: {scope: :name}
 
   has_many :catalog_log_entries, -> { order 'created_at DESC' }, dependent: :destroy
@@ -188,7 +190,7 @@ class CatalogEntry < ActiveRecord::Base
   end
 
   def template_params
-    params = ::CatalogEntry.all.map { |y| [y.label, y.version] }.to_h
+    params = ::CatalogEntry.all.map { |y| [y.to_param, y.version] }.to_h
     params.merge({
                           name: name,
                           tag: tag,
@@ -213,11 +215,15 @@ class CatalogEntry < ActiveRecord::Base
   def label
     if tag == 'latest'
       name
-    elsif tag.to_s.index(name) === 0
+    elsif tag and name and tag.to_s.index(name) === 0
       tag
     else
       "#{name}:#{tag}"
     end
+  end
+
+  def to_param
+    "#{name}:#{tag}"
   end
 
   def visible
