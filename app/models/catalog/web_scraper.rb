@@ -78,7 +78,7 @@ module Catalog
 
       create_with(
           web_page_url: 'https://gitlab.com/gitlab-org/gitlab-ce/raw/master/CHANGELOG.md',
-          include_regex: '## (v)?[0-9]',
+          include_regex: '## v?[0-9\.]+',
           exclude_regex: 'unreleased'
       ).find_or_create_by!(name: 'gitlab', tag: 'latest')
 
