@@ -8,7 +8,7 @@
       <table class="table table-striped">
         <thead>
         <tr>
-          <th>Name</th>
+          <th class="text-right">Catalog Entry</th>
           <th>Tag</th>
           <th>Version</th>
         </tr>
@@ -16,13 +16,13 @@
         <tbody>
         <% @instances.each do |i| %>
             <tr>
-              <td>
+              <td width="20%" style="white-space: nowrap;" class="text-right">
                 <% unless i.up_to_date? %>
                     <i class="fa fa-upload hidden-xs"></i>
                 <% end %>
-                <%= i.name %>
+                <a href="<%= catalog_view_path(name: i.name, tag: i.tag) %>"><%= i.name %></a>
               </td>
-              <td><%= i.tag %></td>
+              <td><a href="<%= catalog_view_path(name: i.name, tag: i.tag) %>"><%= i.tag %></a></td>
               <% if i.up_to_date? %>
                   <td class="bg-success">
                     <%= text_field_tag("ver_#{i.id}", i.version, class: 'form-control2') %>
