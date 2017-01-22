@@ -20,3 +20,7 @@ module Latestver
     config.eager_load_paths << Rails.root.join('data', 'lib')
   end
 end
+
+Raven.configure do |config|
+  config.logger.level = ::Logger::WARN
+end

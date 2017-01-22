@@ -10,6 +10,7 @@ gem 'rufus-scheduler'
 gem 'jbuilder', '~> 2.0'
 gem 'sdoc', '~> 0.4.0', group: :doc
 gem 'versioneer', '~> 0.3'
+gem 'sentry-raven'
 
 # Version checking helpers
 gem 'gems'

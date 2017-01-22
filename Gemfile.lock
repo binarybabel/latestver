@@ -77,6 +77,8 @@ GEM
     erubis (2.7.0)
     eventmachine (1.2.1)
     execjs (2.7.0)
+    faraday (0.11.0)
+      multipart-post (>= 1.2, < 3)
     ffi (1.9.17)
     font-awesome-rails (4.7.0.1)
       railties (>= 3.2, < 5.1)
@@ -142,6 +144,7 @@ GEM
     minitest (5.10.1)
     mixlib-versioning (1.1.0)
     multi_json (1.12.1)
+    multipart-post (2.0.0)
     nenv (0.3.0)
     nested_form (0.3.2)
     nio4r (1.2.1)
@@ -225,10 +228,12 @@ GEM
     sdoc (0.4.2)
       json (~> 1.7, >= 1.7.7)
       rdoc (~> 4.0)
+    sentry-raven (2.3.0)
+      faraday (>= 0.7.6, < 1.0)
     shellany (0.0.1)
     slop (3.6.0)
     sparkr (0.4.1)
-    spring (2.0.0)
+    spring (2.0.1)
       activesupport (>= 4.2)
     sprockets (3.7.1)
       concurrent-ruby (~> 1.0)
@@ -293,6 +298,7 @@ DEPENDENCIES
   rufus-scheduler
   sass-rails (~> 5.0)
   sdoc (~> 0.4.0)
+  sentry-raven
   spring
   sqlite3
   turbolinks

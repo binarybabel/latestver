@@ -264,6 +264,7 @@ class CatalogEntry < ActiveRecord::Base
     rescue => e
       reload
       self.last_error = e.message
+      ::Raven.capture_exception(e)
       save
       raise e
     end
