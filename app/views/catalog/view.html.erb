@@ -2,6 +2,11 @@
   <h4 style="margin: 0;">
     <%= @entry.label %>
   </h4>
+  <% unless @entry.description.to_s.empty? %>
+      <p class="text-center" style="margin-bottom: 0; font-size: 18px;">
+        <em><%= @entry.description %></em>
+      </p>
+  <% end %>
 </div>
 
 <div class="row">

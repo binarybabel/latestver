@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170114014452) do
+ActiveRecord::Schema.define(version: 20170123064208) do
 
   create_table "catalog_entries", force: :cascade do |t|
     t.string   "name",                           null: false
@@ -23,6 +23,7 @@ ActiveRecord::Schema.define(version: 20170114014452) do
     t.text     "data"
     t.datetime "refreshed_at"
     t.string   "last_error"
+    t.string   "description"
     t.boolean  "no_log",         default: false
     t.boolean  "hidden",         default: false
     t.datetime "created_at",                     null: false

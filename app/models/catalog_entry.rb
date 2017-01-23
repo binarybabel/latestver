@@ -380,6 +380,7 @@ class CatalogEntry < ActiveRecord::Base
           field :external_links do
             help 'HTML links <a></a> (one per line). Type may also auto-add links on create.'
           end
+          field :description
         end
       end
       edit do
@@ -404,6 +405,7 @@ class CatalogEntry < ActiveRecord::Base
           field :external_links do
             help 'HTML links <a></a> (one per line) — Vars: ' + ::CatalogEntry.template_help
           end
+          field :description
         end
       end
     end

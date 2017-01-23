@@ -21,6 +21,9 @@
         <td><%= entry.tag %></td>
         <td><%= entry.version %></td>
         <td>
+          <% unless entry.description.to_s.empty? %>
+              <em class="small hidden-xs"><%= entry.description %> &nbsp; &nbsp; </em>
+          <% end %>
           <%= render partial: 'shared/entry_links', locals: {entry: entry} %>
         </td>
       </tr>
