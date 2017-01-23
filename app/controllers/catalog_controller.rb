@@ -71,6 +71,7 @@ class CatalogController < ApplicationController
           badge_version = URI.encode(version)
           badge_color = (version == @entry.version) && 'brightgreen' || 'red'
         end
+        badge_label = badge_label.gsub('-', '--')
         badge_version = badge_version.gsub('-', '--')
         badge_url = "https://img.shields.io/badge/#{badge_label}-#{badge_version}-#{badge_color}.svg"
 
