@@ -1,3 +1,16 @@
+### 1.7 (2017-01-22)
+
+* __`NEW`__ Add support for dependency badges.
+* __`NEW`__ Add variable substitution to external links.
+* __`NEW`__ Add ability to test webhooks.
+* __`NEW`__ Add support for custom curl/command webhooks.
+* __`~~~`__ Improve navigation and add help text.
+* __`~~~`__ API documentation improvements.
+* __`!!!`__ Fix OracleJava entries >=JDK8. (Add support for download hashes.)
+* __`!!!`__ Fix default entry - GitLab WebScraper.
+* __`!!!`__ Fix routing for special chars and template substitutions.
+
+
 ### 1.6 (2016-12-27)
 
 * __`NEW`__ Add internal version tracking and changelog.
