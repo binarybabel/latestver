@@ -140,7 +140,7 @@ if Rails.env.development?
       current_version = version_lambda.call
       tag_mode = `[ -n "$(git config --local --get user.signingkey)" ] && echo "-s" || echo "-a"`.chomp
       system "git tag #{tag_mode} v#{current_version} -m ' #{commit_message % [current_version]}'"
-      system 'git tag -n | head -n 1'
+      system 'git tag -n | tail -n 1'
     end
 
     ### Rake Template Author + Updates ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~

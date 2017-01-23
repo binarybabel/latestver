@@ -324,6 +324,12 @@ class CatalogEntry < ActiveRecord::Base
         field :name do
           sortable 'name, tag'
           sort_reverse false
+          pretty_value do
+            v = bindings[:view]
+            o = bindings[:object]
+            am = ::RailsAdmin::AbstractModel.new(o.class)
+            v.link_to(value, v.url_for(action: :edit, model_name: am.to_param, id: o.id), class: 'pjax').html_safe
+          end
         end
         field :type
         field :tag
