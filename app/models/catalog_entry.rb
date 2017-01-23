@@ -245,7 +245,7 @@ class CatalogEntry < ActiveRecord::Base
               unless self.no_log
                 CatalogLogEntry.create!({
                                             catalog_entry: self,
-                                            version_from: version,
+                                            version_from: version.presence,
                                             version_to: vv
                                         })
               end

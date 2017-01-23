@@ -5,9 +5,9 @@ Rails.application.routes.draw do
 
   get 'catalog' => 'catalog#index', :as => 'catalog'
   get 'catalog/:name/:tag' => 'catalog#view', :as => 'catalog_view',
-      :name => /[a-z0-9\._-]+?/, :tag => /[a-z0-9\._-]+?/, :format => /html/
+      :name => /[a-z0-9\._-]+?/i, :tag => /[a-z0-9\._-]+?/i, :format => /html/
   get 'catalog-api/:name/:tag' => 'catalog#view', :as => 'catalog_view_api',
-      :name => /[a-z0-9\._-]+?/, :tag => /[a-z0-9\._-]+?/, :format => /txt|json|svg/
+      :name => /[a-z0-9\._-]+?/i, :tag => /[a-z0-9\._-]+?/i, :format => /txt|json|svg/
 
   get 'group/:group' => 'group#index', :as => :group
   post 'group/:group' => 'group#update', :as => :group_update

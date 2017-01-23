@@ -31,19 +31,7 @@ module Catalog
     store :data, accessors: [:web_page_url, :css_query, :xpath_query, :include_regex, :exclude_regex], coder: JSON
 
     def check_remote_version
-      url = web_page_url.to_s % template_params
-      text = open(url) { |f| f.read }
-
-      unless [css_query, xpath_query].all? { |v| v.to_s.empty? }
-        n = Nokogiri::HTML(text)
-        unless css_query.to_s.empty?
-          n = n.at_css(css_query)
-        end
-        unless xpath_query.to_s.empty?
-          n = n.at_xpath(xpath_query)
-        end
-        text = n.text
-      end
+      text = fetch_remote_text
 
       iexp = Regexp.new(include_regex.to_s)
       xexp = Regexp.new(exclude_regex.to_s)
@@ -59,6 +47,7 @@ module Catalog
           end
         end
       end
+
       nil
     end
 
@@ -90,6 +79,24 @@ module Catalog
     end
 
     protected
+
+    def fetch_remote_text
+      url = web_page_url.to_s % template_params
+      text = open(url) { |f| f.read }
+
+      unless [css_query, xpath_query].all? { |v| v.to_s.empty? }
+        n = Nokogiri::HTML(text)
+        unless css_query.to_s.empty?
+          n = n.at_css(css_query)
+        end
+        unless xpath_query.to_s.empty?
+          n = n.at_xpath(xpath_query)
+        end
+        text = n.text
+      end
+
+      text
+    end
 
     rails_admin do
       create do
