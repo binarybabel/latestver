@@ -12,7 +12,7 @@ Rails.application.routes.draw do
   get 'group/:group' => 'group#index', :as => :group
   post 'group/:group' => 'group#update', :as => :group_update
 
-  get 'log' => 'log#index', :as => 'log'
+  get 'log' => 'log#index', :as => 'log', :format => /html|rss/
   get 'help' => 'help#index', :as => 'help'
   get 'api' => 'help#api', :as => 'api'
   get 'ver' => 'help#version', :as => nil
