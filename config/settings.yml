@@ -2,6 +2,7 @@ branding:
   docker: https://hub.docker.com/r/binarybabel/latestver/
   github: https://github.com/binarybabel/latestver
   gitter:
-    url: https://gitter.im/latestver/Lobby
-    badge: https://img.shields.io/gitter/room/latestver/Lobby.svg?style=flat-square
+    url: https://gitter.im/binarybabel/Latestver
+    badge: https://img.shields.io/gitter/room/binarybabel/Latestver.svg?style=flat-square
+  ifttt: https://github.com/binarybabel/latestver/wiki/IFTTT-Notifications
 

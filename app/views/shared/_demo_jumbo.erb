@@ -5,22 +5,35 @@
         automatically monitors updates to dependencies...
       </h3>
     </div>
-    <ul class="fa-ul" style="margin-left: 50px;">
-      <li><i class="fa-li fa fa-download"></i>
-        Version numbers and package links available via a <a href="/api">JSON API</a>, excellent for
-        <i class="fa fa-magic"></i> <strong>automation</strong> and
-        <i class="fa fa-bolt"></i> <strong>scripted tools</strong>!
-      </li>
-      <li><i class="fa-li fa fa-cubes"></i>
-        Support for Git Tags, NPM, RubyGems, Web-page Scraping, and more...
-      </li>
-      <li><i class="fa-li fa fa-ship"></i>
-        <a href="<%= Settings[:branding][:github] %>" target="_blank">Docker image</a>
-        available for private use, with <a href="/help">additional features</a>
-        such as webhooks and project tracking.
-      </li>
-      <li><i class="fa-li fa fa-github"></i>
-        <a href="<%= Settings[:branding][:github] %>" target="_blank">Open-source project from BinaryBabel</a>
-      </li>
-    </ul>
+    <div class="row">
+      <div class="col-md-8">
+        <ul class="fa-ul" style="margin-left: 50px;">
+          <li><i class="fa-li fa fa-download"></i>
+            Version numbers and package links available via a <a href="/api">JSON API</a>, excellent for
+            <i class="fa fa-magic"></i> <strong>automation</strong> and
+            <i class="fa fa-bolt"></i> <strong>scripted tools</strong>!
+          </li>
+          <li class="visible-xs visible-sm"><i class="fa-li fa fa-bell"></i>
+            <a href="<%= Settings[:branding][:ifttt] %>" target="_blank">Learn how to get notifications via IFTTT</a>
+          </li>
+          <li><i class="fa-li fa fa-cubes"></i>
+            Support for Git Tags, NPM, RubyGems, Web-page Scraping, and more...
+          </li>
+          <li><i class="fa-li fa fa-ship"></i>
+            <a href="<%= Settings[:branding][:github] %>" target="_blank">Docker image</a>
+            available for private use, with <a href="/help">additional features</a>
+            such as webhooks and project tracking.
+          </li>
+          <li><i class="fa-li fa fa-github"></i>
+            <a href="<%= Settings[:branding][:github] %>" target="_blank">Open-source project from BinaryBabel</a>
+          </li>
+        </ul>
+      </div>
+      <div class="col-md-4 text-right hidden-sm hidden-xs">
+        <a class="btn btn-primary btn-lg" href="<%= Settings[:branding][:ifttt] %>" target="_blank">
+          <i class="fa fa-bell"></i> Get Notifications via IFTTT
+        </a>
+      </div>
+    </div>
+
 <% end %>

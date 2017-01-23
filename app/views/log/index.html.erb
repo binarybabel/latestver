@@ -1,4 +1,8 @@
-<div class="small pull-right"><%= t('app.nav.refreshed') %><%= last_catalog_refresh %></div>
+<div class="small pull-right">
+  <a href="<%= log_url(format: 'rss') %>"><i class="fa fa-rss"></i> RSS</a>
+  &nbsp;|&nbsp;
+  <%= t('app.nav.refreshed') %><%= last_catalog_refresh %>
+</div>
 <h3 class="sub-header">Catalog Update Log</h3>
 <div class="table-responsive">
   <table class="table table-striped">
