@@ -1,4 +1,17 @@
+require 'gems'
+
 module ApplicationHelper
+  def product_update?
+    begin
+      latest = CatalogEntry.find_by!(name: 'latestver', tag: 'release')
+      latest_ver = ::Gem::Version.new(latest.version)
+      current_ver = ::Gem::Version.new(::Latestver::VERSION)
+      latest_ver > current_ver
+    rescue
+      false
+    end
+  end
+
   def body_c
     c = params[:controller].to_s.split('/').last
     a = params[:action]

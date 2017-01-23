@@ -42,8 +42,12 @@
       <a class="navbar-brand" href="/" style="color: #fff;"><%= t('app.nav.title') %></a>
     </div>
     <div id="navbar" class="navbar-collapse collapse">
-      <ul class="nav navbar-nav hidden-xs hidden-sm">
-        <li><a href="<%= log_path %>"><%= t('app.nav.refreshed') %> <%= last_catalog_refresh %></a></li>
+      <ul class="nav navbar-nav">
+        <li class="hidden-xs hidden-sm"><a href="<%= log_path %>"><%= t('app.nav.refreshed') %> <%= last_catalog_refresh %></a></li>
+        <% if product_update? %>
+          <li><a href="<%= Settings[:branding][:changelog] %>" class="product-update" target="_blank">
+            <i class="fa fa-asterisk"></i> New Latestver Release</a></li>
+        <% end %>
       </ul>
       <ul class="nav navbar-nav navbar-right" style="margin-right: 70px;">
         <% if instance_groups.any? %>

@@ -1,4 +1,5 @@
 branding:
+  changelog: https://github.com/binarybabel/latestver/blob/master/CHANGELOG.md
   docker: https://hub.docker.com/r/binarybabel/latestver/
   github: https://github.com/binarybabel/latestver
   gitter:
