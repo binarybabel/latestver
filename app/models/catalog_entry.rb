@@ -162,6 +162,10 @@ class CatalogEntry < ActiveRecord::Base
   ## Can be overridden, but normally fend for themselves.
   ##
 
+  def version=(v)
+    super(self.std_version(v))
+  end
+
   def version_parsed
     parts = {
         'major': '',
@@ -235,18 +239,19 @@ class CatalogEntry < ActiveRecord::Base
       v = check_remote_version
       unless v.kind_of?(FalseClass)
         if (v.kind_of?(String) and not v.empty?) or (v.kind_of?(Hash) and not v[:version].to_s.empty?)
-          vv = v.kind_of?(String) && v || v[:version]
+          v0 = version.presence
+          v1 = std_version(v.kind_of?(Hash) && v[:version] || v)
 
           CatalogEntry.transaction do
             self.refreshed_at = DateTime.now
 
-            if version != vv
+            if v0 != v1
               self.version_date = DateTime.now
               unless self.no_log
                 CatalogLogEntry.create!({
                                             catalog_entry: self,
-                                            version_from: version.presence,
-                                            version_to: vv
+                                            version_from: v0,
+                                            version_to: v1
                                         })
               end
             end
@@ -257,7 +262,7 @@ class CatalogEntry < ActiveRecord::Base
                 self.send("#{k}=".to_sym, v)
               end
             end
-            self.version = vv
+            self.version = v1
             self.last_error = nil
 
             save!
@@ -293,6 +298,12 @@ class CatalogEntry < ActiveRecord::Base
   end
 
   protected
+
+  def std_version(v)
+    if v.presence
+      v.to_s.sub(/\Av(?=[0-9])/, '')
+    end
+  end
 
   after_create do
     links = default_links
@@ -331,9 +342,16 @@ class CatalogEntry < ActiveRecord::Base
             v.link_to(value, v.url_for(action: :edit, model_name: am.to_param, id: o.id), class: 'pjax').html_safe
           end
         end
-        field :type
-        field :tag
+        field :tag do
+          pretty_value do
+            v = bindings[:view]
+            o = bindings[:object]
+            am = ::RailsAdmin::AbstractModel.new(o.class)
+            v.link_to(value, v.url_for(action: :edit, model_name: am.to_param, id: o.id), class: 'pjax').html_safe
+          end
+        end
         field :version
+        field :type
         field :version_date
         field :last_error
         field :hidden, :boolean do
