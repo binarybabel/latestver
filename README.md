@@ -1,12 +1,13 @@
 # Latestver
 
-[![Join the chat at https://gitter.im/binarybabel/Latestver](https://badges.gitter.im/binarybabel/Latestver.svg)](https://gitter.im/binarybabel/Latestver?utm_source=badge&utm_medium=badge&utm_content=badge) [![Dependency Status](https://gemnasium.com/badges/github.com/binarybabel/latestver.svg)](https://gemnasium.com/github.com/binarybabel/latestver) [![Code Climate](https://codeclimate.com/github/binarybabel/latestver/badges/gpa.svg)](https://codeclimate.com/github/binarybabel/latestver) [![Inline docs](http://inch-ci.org/github/binarybabel/latestver.svg?branch=master)](http://inch-ci.org/github/binarybabel/latestver)
-
-[![Docker Automated build](https://img.shields.io/docker/automated/binarybabel/latestver.svg)](https://hub.docker.com/r/binarybabel/latestver/) [![GPL](https://img.shields.io/aur/license/yaourt.svg)](https://www.gnu.org/licenses/gpl-3.0.en.html)
-
 Dependency monitoring web-application featuring webhooks, JSON API, and project-level tracking.
 
 **Hosted edition available at: [lv.binarybabel.org](https://lv.binarybabel.org)**
+
+[![Join the chat at https://gitter.im/binarybabel/Latestver](https://badges.gitter.im/binarybabel/Latestver.svg)](https://gitter.im/binarybabel/Latestver?utm_source=badge&utm_medium=badge&utm_content=badge) [![Support](https://beerpay.io/binarybabel/latestver/badge.svg?style=beer)](https://beerpay.io/binarybabel/latestver)
+
+[![Docker Automated build](https://img.shields.io/docker/automated/binarybabel/latestver.svg)](https://hub.docker.com/r/binarybabel/latestver/) [![Dependency Status](https://gemnasium.com/badges/github.com/binarybabel/latestver.svg)](https://gemnasium.com/github.com/binarybabel/latestver) [![Code Climate](https://codeclimate.com/github/binarybabel/latestver/badges/gpa.svg)](https://codeclimate.com/github/binarybabel/latestver) [![Inline docs](http://inch-ci.org/github/binarybabel/latestver.svg?branch=master)](http://inch-ci.org/github/binarybabel/latestver) [![GPL](https://img.shields.io/aur/license/yaourt.svg)](https://www.gnu.org/licenses/gpl-3.0.en.html)
+
 
 Supports tracking the latest versions of your favorite software via:
 
