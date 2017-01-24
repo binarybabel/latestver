@@ -64,15 +64,15 @@ class CatalogController < ApplicationController
       #   * GREEN  (Version given is up-to-date)
       #   * RED    (Version given is out-of-date)
       format.svg do
-        badge_label = params['label'] || @entry.label
+        badge_label = params['label'] || params['l'] || @entry.label
         badge_version = @entry.version
         badge_color = 'blue'
         if (version = params['v'])
           badge_version = URI.encode(version)
           badge_color = (version == @entry.version) && 'brightgreen' || 'red'
         end
-        badge_label = badge_label.gsub('-', '--')
-        badge_version = badge_version.gsub('-', '--')
+        badge_label = badge_label.to_s.gsub('-', '--')
+        badge_version = badge_version.to_s.gsub('-', '--')
         badge_url = "https://img.shields.io/badge/#{badge_label}-#{badge_version}-#{badge_color}.svg"
 
         if Rails.env.development? or ENV['PROXY_BADGES']
