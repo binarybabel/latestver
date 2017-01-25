@@ -51,18 +51,20 @@ services:
 Catalog Settings
 
 * __REFRESH\_ENABLED__
- * default: true - catalog versions refreshed automatically (at startup and set interval)
+  * default: true - catalog versions refreshed automatically (at startup and set interval)
 * __REFRESH\_INTERVAL__
- * default: 1h - how often catalog is refreshed, ex: _(7d, 1h, 15m, 60s)_
+  * default: 1h - how often catalog is refreshed, ex: _(7d, 1h, 15m, 60s)_
 * __CACHE\_CONTROL\_MAX\_AGE__
- * default: 0 - how many seconds browsers or proxies may cache catalog results
+  * default: 0 - how many seconds browsers or proxies may cache catalog results
+* __GA\_TRACKING\_ID__
+  * default: none - Enable Google Analytics, ex: _UA-00000000-1_
 
 Security Settings
 
 * __ADMIN\_PASS__
- * no default - if set admin pages are password protected
+  * no default - if set admin pages are password protected
 * __ADMIN\_USER__
- * default: admin
+  * default: admin
 
 ### Custom Catalog Entries
 
