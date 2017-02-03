@@ -1,2 +1,5 @@
 .git
 tmp
+test
+node_modules
+bower_components

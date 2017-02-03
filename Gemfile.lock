@@ -1,6 +1,10 @@
 GEM
   remote: https://rubygems.org/
   specs:
+    accio_bower (1.0.0)
+      rails
+      sprockets
+      versioneer
     actioncable (5.0.1)
       actionpack (= 5.0.1)
       nio4r (~> 1.2)
@@ -273,6 +277,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  accio_bower
   annotate
   bootstrap-sass (~> 3.3.6)
   brakeman

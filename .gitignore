@@ -26,3 +26,4 @@ config/environments/*.local.yml
 # Ignore local app data.
 /data
 /version.lock
+/vendor/assets/bower_components
