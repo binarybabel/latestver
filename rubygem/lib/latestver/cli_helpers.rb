@@ -22,12 +22,12 @@ module Latestver
           if data_out.is_a? String
             data_out = {
                 value: data_out,
-                error: "",
+                error: '',
             }
           elsif data_out.is_a? Exception
             data_out = {
                 error: data_out.message,
-                value: "",
+                value: '',
             }
           end
           JSON.pretty_generate(data_out)

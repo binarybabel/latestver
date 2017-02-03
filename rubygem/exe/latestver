@@ -24,7 +24,7 @@ opparser = OptionParser.new do |opts|
       '',
       ' Options:'
   ].join("\n")
-  opts.on('-p PATH.SELECTOR', 'Return sub-path of result data. default: version') do |v|
+  opts.on('-p SUB.FIELD.PATH', 'Dot-path to result field, default: version') do |v|
     options[:select] = v
   end
   opts.on('--server SERVER', 'https://lv.binarybabel.org') do |v|

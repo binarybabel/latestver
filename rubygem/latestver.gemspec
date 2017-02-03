@@ -20,7 +20,7 @@ Gem::Specification.new do |spec|
   spec.executables   = spec.files.grep(%r{^exe/}) { |f| File.basename(f) }
   spec.require_paths = ['lib']
 
-  spec.files += ['version.lock']
+  spec.files += ['version.lock', '.versioneer.yml']
   spec.add_dependency 'versioneer'
 
   spec.add_runtime_dependency 'faraday'
