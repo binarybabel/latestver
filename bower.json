@@ -17,6 +17,8 @@
     "tests"
   ],
   "dependencies": {
-    "noty": "^2.4.0"
+    "noty": "^2.4.0",
+    "datatables": "^1.10.13",
+    "clipboard": "^1.5.16"
   }
 }

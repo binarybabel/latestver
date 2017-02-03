@@ -14,4 +14,7 @@
 //= require jquery_ujs
 // require turbolinks
 //= require bootstrap-sprockets
+//= require datatables/media/js/jquery.dataTables.min
+//= require datatables/media/js/dataTables.bootstrap.min
+//= require clipboard/dist/clipboard.min
 //= require_tree .
