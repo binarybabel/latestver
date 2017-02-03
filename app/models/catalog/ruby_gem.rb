@@ -69,7 +69,7 @@ module Catalog
       if filter
         match_requirement(versions.map { |y| y['number'].to_s }.compact, "~>#{filter}.0")
       else
-        versions[0]['number']
+        match_requirement(versions.map { |y| y['number'].to_s }.compact, '>0')
       end
     end
   end
