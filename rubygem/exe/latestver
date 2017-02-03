@@ -1,0 +1,61 @@
+#!/usr/bin/env ruby
+
+require 'bundler/setup'
+require 'optparse'
+require 'latestver'
+
+options = {
+    :server => 'https://lv.binarybabel.org',
+    :output => 'select',
+    :select => 'version',
+}
+
+opparser = OptionParser.new do |opts|
+  opts.banner = [
+      '',
+      'Latestver CLI              lv.binarybabel.org',
+      '---------------------------------------------',
+      '  latestver get NAME:TAG',
+      '  latestver [OPTIONS] ACTION [ARGS]',
+      '---------------------------------------------',
+      '',
+      ' Actions:',
+      '   get NAME:TAG',
+      '',
+      ' Options:'
+  ].join("\n")
+  opts.on('-p PATH.SELECTOR', 'Return sub-path of result data. default: version') do |v|
+    options[:select] = v
+  end
+  opts.on('--server SERVER', 'https://lv.binarybabel.org') do |v|
+    options[:server] = v
+  end
+  opts.on('--json', 'JSON output, clears default path selector') do
+    options[:output] = 'json'
+    options[:select] = nil
+  end
+end
+opparser.parse!
+
+@app = Latestver::Client.new(options[:server])
+@cli = Latestver::CliHelpers
+
+
+if ARGV.size > 0
+  begin
+    case (action = ARGV.shift)
+
+      when /get/i
+        data = @app.catalog_get(ARGV[0])
+        puts @cli.output(options, data)
+
+      else
+        puts opparser.help
+    end
+  rescue Latestver::ClientError => e
+    puts @cli.output(options, e)
+    exit(1)
+  end
+else
+  puts opparser.help
+end

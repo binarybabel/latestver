@@ -1,0 +1,8 @@
+# Versioneer Project Configuration
+# https://git.io/versioneer-help
+
+type: Git
+bump_segment: minor
+prereleases:
+  - alpha
+  - beta
