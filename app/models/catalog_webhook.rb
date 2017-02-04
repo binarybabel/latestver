@@ -25,7 +25,7 @@ class CatalogWebhook < ApplicationRecord
     self.last_triggered = DateTime.now
     self.last_error = nil
     begin
-      cmd = self.command % catalog_entry.template_params.merge({url: url})
+      cmd = self.command.to_s.gsub(/%(?!\{)/, '%%') % catalog_entry.template_params.merge({url: url})
       out = `#{cmd} 2>&1`
       if $? != 0
         self.last_error = out

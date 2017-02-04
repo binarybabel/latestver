@@ -143,6 +143,7 @@ class CatalogEntry < ActiveRecord::Base
 
   def templated(name)
     template = self.send(name)
+    template = template.to_s.gsub(/%(?!\{)/, '%%')
     params = template_params
     counter = 0
     while params.size > counter

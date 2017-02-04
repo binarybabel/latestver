@@ -81,7 +81,7 @@ module Catalog
     protected
 
     def fetch_remote_text
-      url = web_page_url.to_s % template_params
+      url = web_page_url.to_s.gsub(/%(?!\{)/, '%%') % template_params
       text = open(url) { |f| f.read }
 
       unless [css_query, xpath_query].all? { |v| v.to_s.empty? }
