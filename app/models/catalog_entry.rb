@@ -53,7 +53,7 @@ class CatalogEntry < ActiveRecord::Base
 
   # Optional.
   # Ex: {'tgz': 'http://example.com/file.tgz', ...}
-  def download_links
+  def downloads
     {}
   end
 
@@ -191,6 +191,31 @@ class CatalogEntry < ActiveRecord::Base
   def version_segments
     return [] unless version
     version.gsub(/[^0-9]+/, '-').split('-')
+  end
+
+  def api_data
+    external_links = []
+    Nokogiri::HTML("<html>#{templated(:external_links)}</html>").css('a').each do |link|
+      external_links << {
+          name: link.inner_text.strip,
+          href: link['href']
+      }
+    end
+
+    {
+        name: name,
+        tag: tag,
+        version: version,
+        version_parsed: version_parsed,
+        version_segments: version_segments,
+        version_updated: version_date,
+        version_checked: updated_at.strftime('%Y-%m-%d'),
+        downloads: downloads,
+        external_links: external_links,
+        command_samples: command_samples,
+        catalog_type: type,
+        api_revision: 20170202
+    }.deep_stringify_keys
   end
 
   def template_params

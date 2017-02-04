@@ -38,7 +38,7 @@ module Catalog
       ]
     end
 
-    def download_links
+    def downloads
       links = Hash.new
       if version
         links['gem'] = "https://rubygems.org/downloads/#{name}-#{version}.gem"

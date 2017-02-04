@@ -1,7 +1,34 @@
-<h3 class="sub-header">API Endpoints with Example Output</h3>
+<div class="jumbotron" style="padding: 10px; margin: 0 0 10px 0;">
+  <h5 style="margin: 0; text-align: center;">
+    <strong>Latestver</strong>
+    —
+    <i class="fa fa-plug"></i> API Usage
+  </h5>
+</div>
 
-<br/>
-<h4 id="entry-path">Catalog Entry &mdash; Single Field</h4>
+<h5 style="margin: 0; text-align: center;">
+  The catalog may also be accessed using command-line tools, or through a simple HTTP API.
+</h5>
+
+<h2><i class="fa fa-terminal"></i> CLI Tools</h2>
+
+<pre>
+  $ gem install latestver
+
+  $ latestver get rails
+  <%= @ex_rails_latest %>
+
+  $ latestver get java:jdk8 -p downloads.rpm
+  <%= @ex_java_download %>
+
+  $ latestver --help         # for other commands
+</pre>
+
+<br />
+<h2><i class="fa fa-globe"></i> HTTP API</h2>
+
+<br />
+<h4 class="sub-header" id="entry-path">Entry Single Field</h4>
 <p>
   If you need a specific value from the catalog entry, query it directly to avoid parsing.
   <em><a href="#entry-json">Refer to the JSON example below for field paths</a>.</em>
@@ -13,13 +40,13 @@
 
 <div class="form-group" style="margin-bottom: 5px;">
   <label class="control-label">Example</label>
-  <%= code_sample("curl -s #{request.base_url}/catalog-api/<java>/<jdk8>.txt?p=<download_links.rpm>", theme: 'black') %>
+  <%= code_sample("curl -s #{request.base_url}/catalog-api/<java>/<jdk8>.txt?p=<downloads.rpm>", theme: 'black') %>
 </div>
 
-<pre>http://download.oracle.com/otn-pub/java/jdk/8u111-b14/jdk-8u111-linux-x64.rpm</pre>
+<pre><%= @ex_java_download %></pre>
 
-<br/>
-<h4 id="entry-json">Catalog Entry &mdash; JSON</h4>
+<br />
+<h4 class="sub-header" id="entry-json">Entry JSON</h4>
 <p><em><strong>Tip:</strong> Click an entry in the Catalog to see its specific output.</em></p>
 
 <div class="form-group">
@@ -31,6 +58,9 @@
   <%= code_sample("curl -s #{request.base_url}/catalog-api/<java>/<jdk8>.json", theme: 'black') %>
 </div>
 
+<% if @ex_java_json %>
+<pre><%= @ex_java_json %></pre>
+<% else %>
 <pre>{
   "name": "java",
   "tag": "jdk8",
@@ -47,7 +77,7 @@
   ],
   "version_updated": "2016-11-20",
   "version_checked": "2016-11-20",
-  "download_links": {
+  "downloads": {
     "rpm": "http://download.oracle.com/otn-pub/java/jdk/8u111-b14/jdk-8u111-linux-x64.rpm",
     "tgz": "http://download.oracle.com/otn-pub/java/jdk/8u111-b14/jdk-8u111-linux-x64.tar.gz",
     "dmg": "http://download.oracle.com/otn-pub/java/jdk/8u111-b14/jdk-8u111-macosx-x64.dmg",
@@ -64,5 +94,6 @@
     "wget_download": "wget --no-check-certificate --no-cookies --header 'Cookie: oraclelicense=accept-securebackup-cookie' 'http://download.oracle.com/otn-pub/java/jdk/8u111-b14/jdk-8u111-linux-x64.rpm'"
   },
   "catalog_type": "Catalog::OracleJava",
-  "api_revision": 1
+  "api_revision": 20170202
 }</pre>
+<% end %>

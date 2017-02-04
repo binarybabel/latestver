@@ -71,7 +71,7 @@ module Catalog
       links
     end
 
-    def download_links
+    def downloads
       return Hash.new unless version
       h = version_segments[0].to_i >= 8 && download_hash.to_s + '/' || ''
       {
@@ -85,8 +85,8 @@ module Catalog
     def command_samples
       return Hash.new unless version
       {
-          'curl_download': "curl -LOH 'Cookie: oraclelicense=accept-securebackup-cookie' '#{download_links[:rpm]}'",
-          'wget_download': "wget --no-check-certificate --no-cookies --header 'Cookie: oraclelicense=accept-securebackup-cookie' '#{download_links[:rpm]}'",
+          'curl_download': "curl -LOH 'Cookie: oraclelicense=accept-securebackup-cookie' '#{downloads[:rpm]}'",
+          'wget_download': "wget --no-check-certificate --no-cookies --header 'Cookie: oraclelicense=accept-securebackup-cookie' '#{downloads[:rpm]}'",
       }
     end
 

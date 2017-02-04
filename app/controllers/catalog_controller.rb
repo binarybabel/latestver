@@ -12,29 +12,9 @@ class CatalogController < ApplicationController
     cache_this!
     @entry = CatalogEntry.find_by!(name: params[:name], tag: params[:tag])
 
-    @external_links = []
-    Nokogiri::HTML("<html>#{@entry.templated(:external_links)}</html>").css('a').each do |link|
-      @external_links << {
-          name: link.inner_text.strip,
-          href: link['href']
-      }
-    end
-    @has_links =  @external_links.size > 0
-
-    @data = {
-        name: @entry.name,
-        tag: @entry.tag,
-        version: @entry.version,
-        version_parsed: @entry.version_parsed,
-        version_segments: @entry.version_segments,
-        version_updated: @entry.version_date,
-        version_checked: @entry.updated_at.strftime('%Y-%m-%d'),
-        download_links: @entry.download_links,
-        external_links: @external_links,
-        command_samples: @entry.command_samples,
-        catalog_type: @entry.type,
-        api_revision: 1
-    }.deep_stringify_keys
+    @data = @entry.api_data
+    @external_links = @data['external_links'] || []
+    @has_links = @external_links.size > 0
 
     respond_to do |format|
       # Default view passthrough.

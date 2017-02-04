@@ -49,7 +49,7 @@ module Catalog
       links
     end
 
-    def download_links
+    def downloads
       links = Hash.new
       if version
         links['git'] = git_repo_url
