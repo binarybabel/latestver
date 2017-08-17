@@ -11,6 +11,8 @@ WORKDIR /app
 
 VOLUME ["/app/data"]
 
+EXPOSE 3333/tcp
+
 ENV RAILS_ENV=production RAILS_SERVE_STATIC_FILES=1
 
 ADD Gemfile /app/Gemfile
