@@ -60,7 +60,7 @@ module Catalog
     end
 
     def bower_git_repo(name)
-      package = JSON.load(open("http://bower.herokuapp.com/packages/#{name}"))
+      package = JSON.load(open("https://registry.bower.io/packages/#{name}"))
       if package.is_a?(Hash)
         package['url']
       end
