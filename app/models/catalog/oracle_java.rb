@@ -23,10 +23,11 @@ require 'open-uri'
 
 module Catalog
   class OracleJava < CatalogEntry
-    store :data, accessors: [ :download_hash ], coder: JSON
+    store :data, accessors: [ :download_uuid ], coder: JSON
 
     def vendor_urls
       @vurls ||= {
+          'jdk11' => 'https://www.oracle.com/technetwork/java/javase/downloads/jdk11-downloads-5066655.html',
           'jdk8' => 'http://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html',
           'jre8' => 'http://www.oracle.com/technetwork/java/javase/downloads/jre8-downloads-2133155.html',
           'jdk7' => 'http://www.oracle.com/technetwork/java/javase/downloads/java-archive-downloads-javase7-521261.html',
@@ -38,16 +39,17 @@ module Catalog
 
     def check_remote_version
       case tag
-        when /jdk[0-9]|jre[0-9]/
-          major = scan_number(tag)
-          raise "Unknown Java tag (#{tag})" unless vendor_urls.include?(tag)
-          html = open(vendor_urls[tag]) { |f| f.read }
-          if (m = html.match(%r{/java/jdk/(#{major}u[0-9]+-b[0-9]+)/([a-f0-9]{32})?}))
-            {
-                version: m[1],
-                download_hash: m[2]
-            }
-          end
+      when /jdk[0-9]|jre[0-9]/
+        raise "Unknown Java tag (#{tag})" unless vendor_urls.include?(tag)
+        major = scan_number(tag)
+        html = open(vendor_urls[tag]) { |f| f.read }
+        # if (m = html.match(%r{/java/jdk/(#{major}u[0-9]+-b[0-9]+)/([a-f0-9]{32})?}))
+        if (m = html.match(%r{/java/jdk/(#{major}[u\.][0-9]+[\.-]b?[0-9]+(\+[0-9]+)?)/([a-f0-9]{32})?}))
+          {
+              version: m[1],
+              download_uuid: m[3]
+          }
+        end
       end
     end
 
@@ -60,6 +62,7 @@ module Catalog
           'major': version_segments[0],
           'minor': version_segments[1],
           'build': version_segments[2],
+          'uuid': download_uuid,
       }
     end
 
@@ -73,12 +76,24 @@ module Catalog
 
     def downloads
       return Hash.new unless version
-      h = version_segments[0].to_i >= 8 && download_hash.to_s + '/' || ''
+      uuid = ''
+      dver = "#{version_segments[0]}u#{version_segments[1]}-"
+      dsfx = ''
+
+      if version_segments[0].to_i >= 8
+        uuid = download_uuid.to_s + '/'
+      end
+
+      if version_segments[0].to_i >= 11
+        dver = version_segments[0..2].join('.') + '_'
+        dsfx = '_bin'
+      end
+
       {
-          'rpm': "http://download.oracle.com/otn-pub/java/jdk/#{version}/#{h}#{java_type}-#{version_segments[0]}u#{version_segments[1]}-linux-x64.rpm",
-          'tgz': "http://download.oracle.com/otn-pub/java/jdk/#{version}/#{h}#{java_type}-#{version_segments[0]}u#{version_segments[1]}-linux-x64.tar.gz",
-          'dmg': "http://download.oracle.com/otn-pub/java/jdk/#{version}/#{h}#{java_type}-#{version_segments[0]}u#{version_segments[1]}-macosx-x64.dmg",
-          'exe': "http://download.oracle.com/otn-pub/java/jdk/#{version}/#{h}#{java_type}-#{version_segments[0]}u#{version_segments[1]}-windows-x64.exe",
+          'rpm': "http://download.oracle.com/otn-pub/java/jdk/#{version}/#{uuid}#{java_type}-#{dver}linux-x64#{dsfx}.rpm",
+          'tgz': "http://download.oracle.com/otn-pub/java/jdk/#{version}/#{uuid}#{java_type}-#{dver}linux-x64#{dsfx}.tar.gz",
+          'dmg': "http://download.oracle.com/otn-pub/java/jdk/#{version}/#{uuid}#{java_type}-#{dver}macosx-x64#{dsfx}.dmg",
+          'exe': "http://download.oracle.com/otn-pub/java/jdk/#{version}/#{uuid}#{java_type}-#{dver}windows-x64#{dsfx}.exe",
       }
     end
 
@@ -92,7 +107,7 @@ module Catalog
 
     def self.reload_defaults!
       {
-          'java' => %w(jdk8 jdk7)
+          'java' => %w(jdk11 jdk8)
       }.each do |name, tags|
         tags.each do |tag|
           find_or_create_by!(name: name, tag: tag)
@@ -101,7 +116,7 @@ module Catalog
 
       if Rails.env.development?
         {
-            'java' => %w(jdk6)
+            'java' => %w(jdk7 jdk6)
         }.each do |name, tags|
           tags.each do |tag|
             find_or_create_by!(name: name, tag: tag)
