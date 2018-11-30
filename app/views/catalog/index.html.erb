@@ -1,5 +1,5 @@
 <%= render 'shared/demo_jumbo' %>
-<br />
+<br/>
 <h3 class="sub-header">
   <span class="pull-right small hidden-xs hidden-sm" style="padding-top: 12px;">
     <i class="fa fa-question-circle"></i> Click an entry name for badges and JSON API usage</span>
@@ -12,29 +12,41 @@
     <th>Tag</th>
     <th>Version</th>
     <th>External Links</th>
+    <th>Last Updated</th>
   </tr>
   </thead>
   <tbody>
   <% @catalog.each do |entry| %>
-      <tr>
-        <td><a href="<%= catalog_view_path(name: entry.name, tag: entry.tag) %>"><%= entry.name %></a></td>
-        <td><%= entry.tag %></td>
-        <td><%= entry.version %></td>
-        <td>
-          <% unless entry.description.to_s.empty? %>
-              <em class="small hidden-xs"><%= entry.description %> &nbsp; &nbsp; </em>
-          <% end %>
-          <%= render partial: 'shared/entry_links', locals: {entry: entry} %>
-        </td>
-      </tr>
+    <tr>
+      <td><a href="<%= catalog_view_path(name: entry.name, tag: entry.tag) %>"><%= entry.name %></a></td>
+      <td><%= entry.tag %></td>
+      <td><%= entry.version %></td>
+      <td>
+        <% unless entry.description.to_s.empty? %>
+          <em class="small hidden-xs"><%= entry.description %> &nbsp; &nbsp; </em>
+        <% end %>
+        <%= render partial: 'shared/entry_links', locals: {entry: entry} %>
+      </td>
+      <td>
+        <%= entry.version_date %>
+      </td>
+    </tr>
   <% end %>
   </tbody>
 </table>
 
 <script>
-$(document).ready(function(){
-  $('#catalog').DataTable({
-    iDisplayLength: 25
-  });
-});
+    $(document).ready(function () {
+        $('#catalog').DataTable({
+            iDisplayLength: 25,
+            'order': [[4, 'desc']],
+            // 'columnDefs': [
+            //     {
+            //         'targets': [4],
+            //         'visible': false,
+            //         'searchable': false
+            //     },
+            // ],
+        });
+    });
 </script>

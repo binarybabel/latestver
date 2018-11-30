@@ -5,7 +5,7 @@ class CatalogController < ApplicationController
 
   def index
     cache_this!
-    @catalog = CatalogEntry.order('name, tag DESC').visible
+    @catalog = CatalogEntry.order('version_date DESC, name, tag DESC').visible
   end
 
   def view
